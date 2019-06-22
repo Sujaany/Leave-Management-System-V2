@@ -14,25 +14,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.Role;
-import com.example.demo.service.RoleService;
+import com.example.demo.entity.LeaveType;
+import com.example.demo.service.LeaveTypeService;
+
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-public class RoleController {
-
+public class LeaveTypeController {
+	
 	@Autowired
-	RoleService roleService;
+	LeaveTypeService leaveTypeService;
 
-	@GetMapping("/role")
-	public List<Role> getRole() {
-		return roleService.viewAllRole();
+	@GetMapping("/leaveType")
+	public List<LeaveType> getLeaveType() {
+		return leaveTypeService.viewAllLeaveType();
 	}
 
-	@PostMapping("/role")
-	public ResponseEntity<String> addRole(@RequestBody Role role) {
+	@PostMapping("/leaveType")
+	public ResponseEntity<String> addLeaveType(@RequestBody LeaveType leaveType) {
 		String msg = null;
-		if (roleService.addRole(role)) {
+		if (leaveTypeService.addLeaveType(leaveType)) {
 			msg = "CREATED";
 		} else {
 			msg = "NOT CREATED";
@@ -40,14 +41,15 @@ public class RoleController {
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 	
-	 @PutMapping("/role/{id}")
-	  public void updateRole(@RequestBody Role role,@PathVariable Integer id) {
-		 roleService.updateRole(id, role);
+	 @PutMapping("/leaveType/{id}")
+	  public void updateLeaveType(@RequestBody LeaveType leaveType,@PathVariable Integer id) {
+		 leaveTypeService.updateLeaveType(id, leaveType);
 	  }
 	
-	@DeleteMapping("/role/{id}")
-	  public void deleteRole(@PathVariable Integer id) {
-		roleService.deleteRole(id);
+	@DeleteMapping("/leaveType/{id}")
+	  public void deleteLeaveType(@PathVariable Integer id) {
+		leaveTypeService.deleteLeaveType(id);
 	  }
 
 }
+

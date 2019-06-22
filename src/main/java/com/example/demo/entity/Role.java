@@ -19,13 +19,13 @@ public class Role implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(name = "rolename", length = 60)
 	private String roleName;
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getRoleName() {
