@@ -8,11 +8,11 @@
 		<version>2.1.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>Leave_System_Duplicate</artifactId>
+	<groupId>com.invicta.lms</groupId>
+	<artifactId>Leave_System</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Leave_System_Duplicate</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Leave_System</name>
+	<description>Leave System- Invicta project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
