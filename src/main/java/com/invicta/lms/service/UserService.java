@@ -7,9 +7,9 @@ import com.invicta.lms.entity.User;
 public interface UserService {
 	User addUser(User user);
 	List<User> viewAllUser();
-	User deleteUser(Integer id);
-	User updateUser(Integer id,User user);
-	User findUserById(Integer id);
+	Long deleteUser(Long id);
+	User updateUser(Long id,User user);
+	User findUserById(Long id);
 }
 
 
