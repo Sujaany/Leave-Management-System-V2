@@ -25,8 +25,8 @@ public class RoleController {
 	RoleService roleService;
 
 	@GetMapping("/role")
-	public List<Role> getRole() {
-		return roleService.viewAllRole();
+	public ResponseEntity<List<Role>> getRole() {
+		return new ResponseEntity<>(roleService.viewAllRole(), HttpStatus.OK);
 	}
 
 	@PostMapping("/role")
@@ -39,15 +39,20 @@ public class RoleController {
 		}
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
-	
-	 @PutMapping("/role/{id}")
-	  public void updateRole(@RequestBody Role role,@PathVariable Integer id) {
-		 roleService.updateRole(id, role);
-	  }
-	
-	@DeleteMapping("/role/{id}")
-	  public void deleteRole(@PathVariable Integer id) {
-		roleService.deleteRole(id);
-	  }
 
+	@PutMapping("/role/{id}")
+	public HttpStatus updateRole(@RequestBody Role role, @PathVariable Integer id) {
+		if (roleService.updateRole(id, role)) {
+			return HttpStatus.OK;
+		}
+		return HttpStatus.BAD_REQUEST;
+	}
+
+	@DeleteMapping("/role/{id}")
+	public HttpStatus deleteRole(@PathVariable Integer id) {
+		if (roleService.deleteRole(id)) {
+			return HttpStatus.OK;
+		}
+		return HttpStatus.BAD_REQUEST;
+	}
 }
