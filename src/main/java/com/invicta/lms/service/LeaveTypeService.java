@@ -5,9 +5,9 @@ import java.util.List;
 import com.invicta.lms.entity.LeaveType;
 
 public interface LeaveTypeService {
-	Boolean addLeaveType(LeaveType leaveType);
+	LeaveType addLeaveType(LeaveType leaveType);
 	List<LeaveType> viewAllLeaveType();
-	Boolean deleteLeaveType(Integer id);
-	Boolean updateLeaveType(Integer id,LeaveType leaveType);
-	Boolean findLeaveTypeById(Integer id);
+	Integer deleteLeaveType(Integer id);
+	LeaveType updateLeaveType(Integer id,LeaveType leaveType);
+	LeaveType findLeaveTypeById(Integer id);
 }

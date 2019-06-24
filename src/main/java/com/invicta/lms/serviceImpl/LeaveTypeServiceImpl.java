@@ -10,46 +10,46 @@ import com.invicta.lms.repository.LeaveTypeRepository;
 import com.invicta.lms.service.LeaveTypeService;
 
 @Service
-public class LeaveTypeServiceImpl implements LeaveTypeService{
+public class LeaveTypeServiceImpl implements LeaveTypeService {
 	@Autowired
 	LeaveTypeRepository leaveTypeRepository;
 
 	@Override
-	public Boolean addLeaveType(LeaveType leaveType) {
+	public LeaveType addLeaveType(LeaveType leaveType) {
 		if (leaveType != null) {
-			leaveTypeRepository.save(leaveType);
-			return true;
+			return leaveTypeRepository.save(leaveType);
 		}
-		return false;
+		return null;
 	}
 
 	@Override
 	public List<LeaveType> viewAllLeaveType() {
 		return leaveTypeRepository.findAll();
-		}
+	}
 
 	@Override
-	public Boolean deleteLeaveType(Integer id) {
+	public Integer deleteLeaveType(Integer id) {
 		if (leaveTypeRepository.getOne(id) != null) {
 			leaveTypeRepository.deleteById(id);
-			return true;
+			return id;
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public Boolean updateLeaveType(Integer id, LeaveType leaveType) {
+	public LeaveType updateLeaveType(Integer id, LeaveType leaveType) {
 		if (leaveTypeRepository.getOne(id) != null) {
 			leaveType.setId(id);
-			leaveTypeRepository.save(leaveType);
-			return true;
+			return leaveTypeRepository.save(leaveType);
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public Boolean findLeaveTypeById(Integer id) {
-		// TODO Auto-generated method stub
+	public LeaveType findLeaveTypeById(Integer id) {
+		if (leaveTypeRepository.getOne(id) != null) {
+			return leaveTypeRepository.findLeaveTypeById(id);
+		}
 		return null;
-	}	
+	}
 }

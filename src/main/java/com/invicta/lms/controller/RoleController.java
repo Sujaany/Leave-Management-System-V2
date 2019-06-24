@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.invicta.lms.entity.Role;
@@ -19,40 +20,34 @@ import com.invicta.lms.service.RoleService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/role")
 public class RoleController {
 
 	@Autowired
 	RoleService roleService;
 
-	@GetMapping("/role")
+	@GetMapping("/get")
 	public ResponseEntity<List<Role>> getRole() {
 		return new ResponseEntity<>(roleService.viewAllRole(), HttpStatus.OK);
 	}
-
-	@PostMapping("/role")
-	public ResponseEntity<String> addRole(@RequestBody Role role) {
-		String msg = null;
-		if (roleService.addRole(role)) {
-			msg = "CREATED";
-		} else {
-			msg = "NOT CREATED";
-		}
-		return new ResponseEntity<>(msg, HttpStatus.OK);
+	
+	@GetMapping("/get/{id}")
+	public ResponseEntity<?>getRoleById(@PathVariable("id") Integer id){
+		return new ResponseEntity<Role>(roleService.findRoleById(id), HttpStatus.OK);
 	}
 
-	@PutMapping("/role/{id}")
-	public HttpStatus updateRole(@RequestBody Role role, @PathVariable Integer id) {
-		if (roleService.updateRole(id, role)) {
-			return HttpStatus.OK;
+	@PostMapping("/add")
+	public ResponseEntity<?> addRole(@RequestBody Role role) {
+		return new ResponseEntity<>(roleService.addRole(role),HttpStatus.CREATED);
 		}
-		return HttpStatus.BAD_REQUEST;
-	}
 
-	@DeleteMapping("/role/{id}")
-	public HttpStatus deleteRole(@PathVariable Integer id) {
-		if (roleService.deleteRole(id)) {
-			return HttpStatus.OK;
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<Role> updateRole(@RequestBody Role role, @PathVariable Integer id) {
+		return new ResponseEntity<Role>(roleService.updateRole(id, role), HttpStatus.OK);
 		}
-		return HttpStatus.BAD_REQUEST;
-	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deleteRole(@PathVariable Integer id) {
+		return new ResponseEntity<>(roleService.deleteRole(id), HttpStatus.OK);
+		}
 }

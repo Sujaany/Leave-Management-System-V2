@@ -15,12 +15,11 @@ public class RoleServiceImpl implements RoleService {
 	RoleRepository roleRepository;
 
 	@Override
-	public Boolean addRole(Role role) {
+	public Role addRole(Role role) {
 		if (role != null) {
-			roleRepository.save(role);
-			return true;
+			return roleRepository.save(role);	
 		}
-		return false;
+		return null;
 	}
 
 	@Override
@@ -29,27 +28,29 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Boolean deleteRole(Integer id) {
+	public Integer deleteRole(Integer id) {
 		if (roleRepository.getOne(id) != null) {
 			roleRepository.deleteById(id);
-			return true;
+			return id;
 		}
-		return false;
+		return null;
 	}
-
+	
 	@Override
-	public Boolean updateRole(Integer id, Role role) {
+	public Role updateRole(Integer id, Role role) {
 		if (roleRepository.getOne(id) != null) {
 			role.setId(id);
-			roleRepository.save(role);
-			return true;
+			return	roleRepository.save(role);
+			
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public Boolean findRoleById(Integer id) {
-		// TODO Auto-generated method stub
+	public Role findRoleById(Integer id) {
+		if(roleRepository.getOne(id)!= null) {
+			return roleRepository.findRoleById(id);
+		}
 		return null;
 	}
 

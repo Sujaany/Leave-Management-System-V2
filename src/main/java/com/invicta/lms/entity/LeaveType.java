@@ -14,8 +14,6 @@ public class LeaveType implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3583633575130527535L;
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -32,6 +30,4 @@ public class LeaveType implements Serializable {
 	public void setLeaveType(String leaveType) {
 		this.leaveType = leaveType;
 	}
-	
-
 }
