@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LeaveSystemDuplicateApplication {
+public class LeaveManagementSystemV2 {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LeaveSystemDuplicateApplication.class, args);
+		SpringApplication.run(LeaveManagementSystemV2.class, args);
 	}
 
 }

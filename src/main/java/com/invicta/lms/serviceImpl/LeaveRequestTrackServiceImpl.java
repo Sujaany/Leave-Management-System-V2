@@ -1,5 +1,12 @@
 package com.invicta.lms.serviceImpl;
 
-public class LeaveRequestTrackServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class LeaveRequestTrackServiceImpl{
+	
+	
+	
+	
 
 }
