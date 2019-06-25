@@ -1,7 +1,6 @@
 package com.invicta.lms.service;
 
 import java.util.List;
-
 import com.invicta.lms.entity.User;
 
 public interface UserService {

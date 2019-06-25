@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.invicta.lms.dto.UserSaveDto;
+import com.invicta.lms.dto.mapper.UserSaveDtoToUser;
 import com.invicta.lms.entity.User;
 import com.invicta.lms.service.UserService;
-
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -24,9 +27,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@PostMapping("/create")
-	public ResponseEntity<?> craeteUser(@RequestBody User user){
-		return new ResponseEntity<>(userService.addUser(user),HttpStatus.CREATED);
+	public ResponseEntity<?> craeteUser(@RequestBody UserSaveDto userSaveDto){
+		
+		return new ResponseEntity<>(userService.addUser(UserSaveDtoToUser.map(userSaveDto)),HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/get")
