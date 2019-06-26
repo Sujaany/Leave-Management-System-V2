@@ -38,19 +38,18 @@ public class RoleServiceImpl implements RoleService {
 	
 	@Override
 	public Role updateRole(Long id, Role role) {
-		if (roleRepository.getOne(id) != null) {
+		
 			role.setId(id);
 			return	roleRepository.save(role);	
-		}
-		return null;
+		
+	
 	}
 
 	@Override
 	public Role findRoleById(Long id) {
-		if(roleRepository.getOne(id)!= null) {
+		
 			return roleRepository.findRoleById(id);
-		}
-		return null;
+	
 	}
 
 }

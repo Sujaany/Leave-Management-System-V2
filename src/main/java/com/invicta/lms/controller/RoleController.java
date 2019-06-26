@@ -32,8 +32,8 @@ public class RoleController {
 	}
 	
 	@GetMapping("/get/{id}")
-	public ResponseEntity<?>getRoleById(@PathVariable("id") Long id){
-		return new ResponseEntity<Role>(roleService.findRoleById(id), HttpStatus.OK);
+	public ResponseEntity<Role>getRoleById(@PathVariable("id") Long id){
+		return new ResponseEntity<>(roleService.findRoleById(id), HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
