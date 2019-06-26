@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.invicta.lms.enums.LeaveProcessType;
@@ -20,9 +21,11 @@ public class UserLeaveCount {
 	private Long id;
 
 	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user;
 
 	@ManyToOne
+	@JoinColumn(name="leaveType_id")
 	private LeaveType leaveType;
 
 	@Enumerated(EnumType.STRING)
