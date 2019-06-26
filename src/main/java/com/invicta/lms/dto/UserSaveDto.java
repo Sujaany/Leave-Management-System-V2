@@ -3,7 +3,7 @@ package com.invicta.lms.dto;
 public class UserSaveDto {
 	private Long id;
 	private String userName;
-	private Integer role;
+	private Long role;
 	private String email;
 	private String password;
 	
@@ -19,10 +19,10 @@ public class UserSaveDto {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public Integer getRole() {
+	public Long getRole() {
 		return role;
 	}
-	public void setRole(Integer role) {
+	public void setRole(Long role) {
 		this.role = role;
 	}
 	public String getEmail() {
@@ -37,6 +37,4 @@ public class UserSaveDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 }
