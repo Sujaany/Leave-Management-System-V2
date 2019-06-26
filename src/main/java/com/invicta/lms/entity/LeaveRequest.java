@@ -28,7 +28,10 @@ public class LeaveRequest {
 	private Double noOfDays;
 	private String reason;
 	private Date requestedDate;
+	
+	
 	private LeaveRequestStatus leaveRequestStatus;
+	
 	public Long getId() {
 		return id;
 	}
