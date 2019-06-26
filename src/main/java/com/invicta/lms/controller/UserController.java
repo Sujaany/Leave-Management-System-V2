@@ -15,42 +15,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.invicta.lms.dto.UserDto;
 import com.invicta.lms.dto.UserSaveDto;
-import com.invicta.lms.dto.mapper.UserSaveDtoToUser;
-import com.invicta.lms.entity.User;
+import com.invicta.lms.dto.mapper.UserSaveDtoMapper;
+import com.invicta.lms.entity.mapper.UserMapper;
+import com.invicta.lms.service.RoleService;
 import com.invicta.lms.service.UserService;
-@CrossOrigin(origins="*")
+
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
-	
-	@PostMapping("/create")
-	public ResponseEntity<?> craeteUser(@RequestBody UserSaveDto userSaveDto){
-		
-		return new ResponseEntity<>(userService.addUser(UserSaveDtoToUser.map(userSaveDto)),HttpStatus.CREATED);
+	@Autowired
+	private RoleService roleService;
+
+	@PostMapping
+	public ResponseEntity<?> craeteUser(@RequestBody UserSaveDto userSaveDto) {
+
+		return new ResponseEntity<>(userService.addUser(UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
+				roleService.findRoleById(userSaveDto.getRole())), HttpStatus.CREATED);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<UserDto>> getUsers() {
+		return new ResponseEntity<>(UserMapper.mapUserListToUserDtoList(userService.viewAllUser()), HttpStatus.OK);
 	}
 	
-	@GetMapping("/get")
-	public ResponseEntity<List<User>> getUsers(){
-		return new ResponseEntity<List<User>>(userService.viewAllUser(), HttpStatus.OK);
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getUserById(@PathVariable("id") Long id) {
+		if (userService.findUserById(id) != null) {
+
+			return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.findUserById(id)), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
-	@GetMapping("/get/{id}")
-	public ResponseEntity<?>getUserById(@PathVariable("id") Long id){
-		return new ResponseEntity<User>(userService.findUserById(id), HttpStatus.OK);
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateUser(@RequestBody UserSaveDto userSaveDto, @PathVariable("id") Long id) {
+
+		return new ResponseEntity<>(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
+				roleService.findRoleById(userSaveDto.getRole())), HttpStatus.OK);
 	}
-	
-	@PutMapping("/update/{id}")
-	public ResponseEntity<User>updateUser(@RequestBody User user,@PathVariable("id") Long id){
-		return new ResponseEntity<User>(userService.updateUser(id, user), HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?>deleteById(@PathVariable("id") Long id){
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
 		return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
 	}
 }

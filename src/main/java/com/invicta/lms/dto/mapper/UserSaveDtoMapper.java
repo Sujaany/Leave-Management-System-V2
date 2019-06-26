@@ -4,8 +4,8 @@ import com.invicta.lms.dto.UserSaveDto;
 import com.invicta.lms.entity.Role;
 import com.invicta.lms.entity.User;
 
-public class UserSaveDtoToUser {
-	public static User map(UserSaveDto userSaveDto)
+public class UserSaveDtoMapper {
+	public static User mapUserSaveDtoToUser(UserSaveDto userSaveDto)
 	{
 		User user =new User();
 		user.setId(userSaveDto.getId());
@@ -13,7 +13,6 @@ public class UserSaveDtoToUser {
 		user.setEmail(userSaveDto.getEmail());
 		Role role = new Role();
 		role.setId(userSaveDto.getRole());
-		user.setRole(role);
 		return user;
 	}
 }

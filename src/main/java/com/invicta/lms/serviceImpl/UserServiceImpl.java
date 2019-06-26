@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.invicta.lms.entity.Role;
 import com.invicta.lms.entity.User;
 import com.invicta.lms.repository.UserRepository;
 import com.invicta.lms.service.UserService;
@@ -15,8 +16,9 @@ public class UserServiceImpl implements UserService{
 	private UserRepository userRepository;
 	
 	@Override
-	public User addUser(User user) {
+	public User addUser(User user,Role role) {
 		if(user != null) {
+			user.setRole(role);
 			return userRepository.save(user);
 		}
 		return null;
@@ -37,9 +39,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User updateUser(Long id, User user) {
+	public User updateUser(Long id, User user,Role role) {
 		if(userRepository.getOne(id)!= null) {
 			user.setId(id);
+			user.setRole(role);
 			return userRepository.save(user);
 		}
 		return null;

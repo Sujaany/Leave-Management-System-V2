@@ -20,7 +20,7 @@ public class Role implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "rolename", length = 60)
+	@Column(name = "role_name", length = 60)
 	private String roleName;
 	public int getId() {
 		return id;
