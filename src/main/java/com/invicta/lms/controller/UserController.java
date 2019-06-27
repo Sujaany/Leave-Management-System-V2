@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.invicta.lms.dto.UserDto;
 import com.invicta.lms.dto.UserSaveDto;
 import com.invicta.lms.dto.mapper.UserSaveDtoMapper;
+import com.invicta.lms.entity.User;
 import com.invicta.lms.entity.mapper.UserMapper;
 import com.invicta.lms.service.RoleService;
 import com.invicta.lms.service.UserService;
@@ -35,8 +36,11 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<?> craeteUser(@RequestBody UserSaveDto userSaveDto) {
 
-		return new ResponseEntity<>(userService.addUser(UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
-				roleService.findRoleById(userSaveDto.getRole())), HttpStatus.CREATED);
+		return new ResponseEntity<>(UserMapper.mapUserToUserDto( 
+				userService.addUser(
+				UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
+				roleService.findRoleById(userSaveDto.getRole())
+				)), HttpStatus.CREATED);
 	}
 
 	@GetMapping
