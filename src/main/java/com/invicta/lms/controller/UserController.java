@@ -60,8 +60,8 @@ public class UserController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@RequestBody UserSaveDto userSaveDto, @PathVariable("id") Long id) {
 
-		return new ResponseEntity<>(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
-				roleService.findRoleById(userSaveDto.getRole())), HttpStatus.OK);
+		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
+				roleService.findRoleById(userSaveDto.getRole()))), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
