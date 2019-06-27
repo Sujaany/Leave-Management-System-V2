@@ -26,27 +26,27 @@ public class RecuitmentTypeController {
 	@Autowired
 	RecuitmentTypeService recuitmentTypeService;
 
-	@GetMapping("/get")
+	@GetMapping
 	public ResponseEntity<List<RecuitmentType>> getRecuitmentType() {
 		return new ResponseEntity<>(recuitmentTypeService.viewAllRecuitmentType(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/get/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?>getRecuitmentTypeById(@PathVariable("id") Integer id){
 		return new ResponseEntity<RecuitmentType>(recuitmentTypeService.findRecuitmentTypeById(id), HttpStatus.OK);
 	}
 
-	@PostMapping("/add")
+	@PostMapping
 	public ResponseEntity<?> addRecuitmentType(@RequestBody RecuitmentType recuitmentType) {
 		return new ResponseEntity<>(recuitmentTypeService.addRecuitmentType(recuitmentType),HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<?> updateRecuitmentType(@RequestBody RecuitmentType recuitmentType, @PathVariable Integer id) {
 		return new ResponseEntity<RecuitmentType>(recuitmentTypeService.updateRecuitmentType(id, recuitmentType), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteRecuitmentType(@PathVariable Integer id) {
 		return new ResponseEntity<>(recuitmentTypeService.deleteRecuitmentType(id), HttpStatus.OK);
 		}
