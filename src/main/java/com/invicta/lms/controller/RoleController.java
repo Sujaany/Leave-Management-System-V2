@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.invicta.lms.dto.RoleDto;
 import com.invicta.lms.dto.mapper.RoleDtoMapper;
-import com.invicta.lms.entity.mapper.RoleEntityMapper;
+import com.invicta.lms.entity.mapper.RoleMapper;
 import com.invicta.lms.service.RoleService;
 
 @RestController
@@ -27,14 +27,14 @@ public class RoleController {
 
 	@GetMapping
 	public ResponseEntity<List<RoleDto>> getRole() {
-		return new ResponseEntity<>(RoleEntityMapper.mapRoleListToRoleDtoList(roleService.viewAllRole()),
+		return new ResponseEntity<>(RoleMapper.mapRoleListToRoleDtoList(roleService.viewAllRole()),
 				HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getRoleById(@PathVariable("id") Long id) {
 		if (roleService.findRoleById(id) != null) {
-			return new ResponseEntity<>(RoleEntityMapper.mapRoleToRoleDto(roleService.findRoleById(id)), HttpStatus.OK);
+			return new ResponseEntity<>(RoleMapper.mapRoleToRoleDto(roleService.findRoleById(id)), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
@@ -42,7 +42,7 @@ public class RoleController {
 	@PostMapping
 	public ResponseEntity<?> addRole(@RequestBody RoleDto roleDto) {
 		return new ResponseEntity<>(
-				RoleEntityMapper.mapRoleToRoleDto(roleService.addRole(RoleDtoMapper.mapRoleDtoToRole(roleDto))),
+				RoleMapper.mapRoleToRoleDto(roleService.addRole(RoleDtoMapper.mapRoleDtoToRole(roleDto))),
 				HttpStatus.CREATED);
 	}
 

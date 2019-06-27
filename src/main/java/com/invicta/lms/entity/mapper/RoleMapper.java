@@ -6,7 +6,7 @@ import java.util.List;
 import com.invicta.lms.dto.RoleDto;
 import com.invicta.lms.entity.Role;
 
-public class RoleEntityMapper {
+public class RoleMapper {
 	public static RoleDto mapRoleToRoleDto(Role role) {
 		RoleDto roleDto = new RoleDto();
 		roleDto.setId(role.getId());
