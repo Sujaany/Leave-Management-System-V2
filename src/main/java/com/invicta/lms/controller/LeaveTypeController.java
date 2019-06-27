@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.invicta.lms.entity.LeaveType;
 import com.invicta.lms.service.LeaveTypeService;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RestController
 @RequestMapping("/leaveType")
 public class LeaveTypeController {
@@ -26,27 +26,27 @@ public class LeaveTypeController {
 	@Autowired
 	LeaveTypeService leaveTypeService;
 
-	@GetMapping("/get")
+	@GetMapping
 	public ResponseEntity<List<LeaveType>> getLeaveType() {
 		return new ResponseEntity<>(leaveTypeService.viewAllLeaveType(), HttpStatus.OK);
 	}
 
-	@GetMapping("/get/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getLeaveTypeById(@PathVariable("id") Integer id) {
 		return new ResponseEntity<LeaveType>(leaveTypeService.findLeaveTypeById(id), HttpStatus.OK);
 	}
 
-	@PostMapping("/add")
+	@PostMapping
 	public ResponseEntity<?> addLeaveType(@RequestBody LeaveType leaveType) {
 		return new ResponseEntity<>(leaveTypeService.addLeaveType(leaveType), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<LeaveType> updateLeaveType(@RequestBody LeaveType leaveType, @PathVariable Integer id) {
 		return new ResponseEntity<LeaveType>(leaveTypeService.updateLeaveType(id, leaveType), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteLeaveType(@PathVariable Integer id) {
 		return new ResponseEntity<>(leaveTypeService.deleteLeaveType(id), HttpStatus.OK);
 	}

@@ -26,28 +26,30 @@ public class RoleController {
 	@Autowired
 	RoleService roleService;
 
-	@GetMapping("/get")
+	@GetMapping
 	public ResponseEntity<List<Role>> getRole() {
 		return new ResponseEntity<>(roleService.viewAllRole(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/get/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Role>getRoleById(@PathVariable("id") Long id){
 		return new ResponseEntity<>(roleService.findRoleById(id), HttpStatus.OK);
 	}
 
-	@PostMapping("/add")
+	@PostMapping
 	public ResponseEntity<?> addRole(@RequestBody Role role) {
 		return new ResponseEntity<>(roleService.addRole(role),HttpStatus.CREATED);
 		}
 
-	@PutMapping("/edit/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Role> updateRole(@RequestBody Role role, @PathVariable Long id) {
 		return new ResponseEntity<Role>(roleService.updateRole(id, role), HttpStatus.OK);
 		}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteRole(@PathVariable Long id) {
 		return new ResponseEntity<>(roleService.deleteRole(id), HttpStatus.OK);
 		}
+	
+	
 }

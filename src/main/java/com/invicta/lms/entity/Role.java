@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "role")
-
 public class Role implements Serializable{
 	
 	private static final long serialVersionUID = -7345802518275698268L;
