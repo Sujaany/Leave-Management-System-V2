@@ -7,8 +7,8 @@ import com.invicta.lms.entity.RecuitmentType;
 public interface RecuitmentTypeService {
 	RecuitmentType addRecuitmentType(RecuitmentType recuitmentType);
 	List<RecuitmentType> viewAllRecuitmentType();
-	Integer deleteRecuitmentType(Integer id);
-	RecuitmentType updateRecuitmentType(Integer id,RecuitmentType recuitmentType);
-	RecuitmentType findRecuitmentTypeById(Integer id);
+	Long deleteRecuitmentType(Long id);
+	RecuitmentType updateRecuitmentType(Long id,RecuitmentType recuitmentType);
+	RecuitmentType findRecuitmentTypeById(Long id);
 
 }

@@ -13,29 +13,32 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "role")
-public class Role implements Serializable{
-	
+public class Role implements Serializable {
+
 	private static final long serialVersionUID = -7345802518275698268L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotNull
-    @Size(max = 30)
-    @Column(unique = true)
+	@Size(max = 30)
+	@Column(unique = true)
 	private String roleName;
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getRoleName() {
 		return roleName;
 	}
+
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
-	}	
+	}
 }
