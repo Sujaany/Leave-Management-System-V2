@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -15,11 +16,11 @@ public class RecuitmentType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	@NotBlank
+	private Long id;
+	
+	@NotNull
 	@Size(max = 30)
 	@Column(unique = true)
-	private Long id;
 	private String recuitmentType;
 
 	public Long getId() {
