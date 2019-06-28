@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.invicta.lms.dto.UserDto;
-import com.invicta.lms.dto.UserSaveDto;
+import com.invicta.lms.dto.UserDtoResponse;
+import com.invicta.lms.dto.UserDtoRequest;
 import com.invicta.lms.dto.mapper.UserSaveDtoMapper;
 import com.invicta.lms.entity.mapper.UserMapper;
 import com.invicta.lms.service.RoleService;
@@ -32,17 +32,17 @@ public class UserController {
 	private RoleService roleService;
 
 	@PostMapping
-	public ResponseEntity<?> craeteUser(@RequestBody UserSaveDto userSaveDto) {
+	public ResponseEntity<?> craeteUser(@RequestBody UserDtoRequest userDtoRequest) {
 
 		return new ResponseEntity<>(UserMapper.mapUserToUserDto( 
 				userService.addUser(
-				UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
-				roleService.findRoleById(userSaveDto.getRole())
+				UserSaveDtoMapper.mapUserSaveDtoToUser(userDtoRequest),
+				roleService.findRoleById(userDtoRequest.getRole())
 				)), HttpStatus.CREATED);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<UserDto>> getUsers() {
+	public ResponseEntity<List<UserDtoResponse>> getUsers() {
 		return new ResponseEntity<>(UserMapper.mapUserListToUserDtoList(userService.viewAllUser()), HttpStatus.OK);
 	}
 	
@@ -56,10 +56,16 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateUser(@RequestBody UserSaveDto userSaveDto, @PathVariable("id") Long id) {
+	public ResponseEntity<?> updateUser(@RequestBody UserDtoRequest userDtoRequest, @PathVariable("id") Long id) {
 
-		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
-				roleService.findRoleById(userSaveDto.getRole()))), HttpStatus.OK);
+		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userDtoRequest),
+				roleService.findRoleById(userDtoRequest.getRole()))), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/{id}/{status}")
+	public ResponseEntity<?> updateUserStatus(@RequestBody UserDtoRequest userDtoRequest, @PathVariable("id") Long id,@PathVariable("status") Boolean status ){
+
+		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.changedStatus(id, status)), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

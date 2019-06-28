@@ -1,6 +1,6 @@
 package com.invicta.lms.dto;
 
-public class UserSaveDto {
+public class UserDtoRequest {
 	private Long id;
 	private String userName;
 	private Long role;

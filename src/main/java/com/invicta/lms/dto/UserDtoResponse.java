@@ -1,10 +1,11 @@
 package com.invicta.lms.dto;
 
-public class UserDto {
+public class UserDtoResponse {
 	private Long id;
 	private String userName;
 	private String roleName;
 	private String email;
+	private Boolean userStatus;
 	
 	public Long getId() {
 		return id;
@@ -30,5 +31,12 @@ public class UserDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public Boolean getUserStatus() {
+		return userStatus;
+	}
+	public void setUserStatus(Boolean userStatus) {
+		this.userStatus = userStatus;
+	}
+	
 	
 }
