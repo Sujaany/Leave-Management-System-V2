@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.invicta.lms.dto.RoleDto;
 import com.invicta.lms.dto.mapper.RoleDtoMapper;
+import com.invicta.lms.entity.RecuitmentType;
 import com.invicta.lms.entity.mapper.RoleMapper;
 import com.invicta.lms.service.RoleService;
+import com.invicta.lms.validation.RoleValidation;
 
 @RestController
 @RequestMapping("/role")
@@ -24,6 +27,9 @@ public class RoleController {
 
 	@Autowired
 	RoleService roleService;
+	
+	@Autowired
+	RoleValidation roleValidation;
 
 	@GetMapping
 	public ResponseEntity<List<RoleDto>> getRole() {
@@ -41,6 +47,12 @@ public class RoleController {
 
 	@PostMapping
 	public ResponseEntity<?> addRole(@RequestBody RoleDto roleDto) {
+		
+		roleValidation.validateRole(roleDto);
+		 if(!roleValidation.getErrors().isEmpty()) {
+			 return new ResponseEntity<>(roleValidation.getErrors(),HttpStatus.BAD_REQUEST);
+		 }
+		 
 		return new ResponseEntity<>(
 				RoleMapper.mapRoleToRoleDto(roleService.addRole(RoleDtoMapper.mapRoleDtoToRole(roleDto))),
 				HttpStatus.CREATED);

@@ -10,5 +10,6 @@ public interface RoleService {
 	Long deleteRole(Long id);
 	Role updateRole(Long id,Role role);
 	Role findRoleById(Long id);
+	Boolean existsByRole(String role);
 	
 }
