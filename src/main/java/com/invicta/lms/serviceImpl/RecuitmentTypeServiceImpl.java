@@ -16,7 +16,7 @@ public class RecuitmentTypeServiceImpl implements RecuitmentTypeService {
 	@Override
 	public RecuitmentType addRecuitmentType(RecuitmentType recuitmentType) {
 		if (recuitmentType != null) {
-			return recuitmentTypeRepository.save(recuitmentType);	
+			return recuitmentTypeRepository.save(recuitmentType);
 		}
 		return null;
 	}
@@ -27,7 +27,7 @@ public class RecuitmentTypeServiceImpl implements RecuitmentTypeService {
 	}
 
 	@Override
-	public Integer deleteRecuitmentType(Integer id) {
+	public Long deleteRecuitmentType(Long id) {
 		if (recuitmentTypeRepository.getOne(id) != null) {
 			recuitmentTypeRepository.deleteById(id);
 			return id;
@@ -36,20 +36,20 @@ public class RecuitmentTypeServiceImpl implements RecuitmentTypeService {
 	}
 
 	@Override
-	public RecuitmentType updateRecuitmentType(Integer id, RecuitmentType recuitmentType) {
-		if (recuitmentTypeRepository.getOne(id) != null) {
+	public RecuitmentType updateRecuitmentType(Long id, RecuitmentType recuitmentType) {
+//		if (recuitmentTypeRepository.getOne(id) != null) {
 			recuitmentType.setId(id);
-			return recuitmentTypeRepository.save(recuitmentType);	
-		}
-		return null;
+			return recuitmentTypeRepository.save(recuitmentType);
+//		}
+//		return null;
 	}
 
 	@Override
-	public RecuitmentType findRecuitmentTypeById(Integer id) {
-		if (recuitmentTypeRepository.getOne(id) != null) {
+	public RecuitmentType findRecuitmentTypeById(Long id) {
+//		if (recuitmentTypeRepository.getOne(id) != null) {
 			return recuitmentTypeRepository.findRecuitmentTypeById(id);
-		}
-		return null;
+//		}
+//		return null;
 	}
 
 }

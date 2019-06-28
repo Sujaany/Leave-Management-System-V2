@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,8 +34,11 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<?> craeteUser(@RequestBody UserSaveDto userSaveDto) {
 
-		return new ResponseEntity<>(userService.addUser(UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
-				roleService.findRoleById(userSaveDto.getRole())), HttpStatus.CREATED);
+		return new ResponseEntity<>(UserMapper.mapUserToUserDto( 
+				userService.addUser(
+				UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
+				roleService.findRoleById(userSaveDto.getRole())
+				)), HttpStatus.CREATED);
 	}
 
 	@GetMapping
@@ -56,8 +58,8 @@ public class UserController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@RequestBody UserSaveDto userSaveDto, @PathVariable("id") Long id) {
 
-		return new ResponseEntity<>(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
-				roleService.findRoleById(userSaveDto.getRole())), HttpStatus.OK);
+		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userSaveDto),
+				roleService.findRoleById(userSaveDto.getRole()))), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
+import org.springframework.lang.NonNull;
 
 import com.invicta.lms.entity.audit.DateAudit;
 
@@ -31,6 +32,7 @@ public class User extends DateAudit {
     @Size(max = 40)
 	private String userName;
 
+	@NonNull
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	@JoinColumn(name = "role_id")
