@@ -1,14 +1,14 @@
 package com.invicta.lms.dto.mapper;
 
-import com.invicta.lms.dto.RecuitmentTypeDto;
+import com.invicta.lms.dto.RecruitmentTypeDto;
 import com.invicta.lms.entity.RecuitmentType;
 
 public class RecuitmentTypeDtoMapper {
 
-	public static RecuitmentType mapRecuitmentTypeDtoToRecuitmentType(RecuitmentTypeDto recuitmentTypeDto) {
+	public static RecuitmentType mapRecuitmentTypeDtoToRecuitmentType(RecruitmentTypeDto recruitmentTypeDto) {
 		RecuitmentType recuitmentType = new RecuitmentType();
-		recuitmentType.setId(recuitmentTypeDto.getId());
-		recuitmentType.setRecuitmentType(recuitmentTypeDto.getRecuitmentType());
+		recuitmentType.setId(recruitmentTypeDto.getId());
+		recuitmentType.setRecuitmentType(recruitmentTypeDto.getRecuitmentType());
 		return recuitmentType;
 	}
 }

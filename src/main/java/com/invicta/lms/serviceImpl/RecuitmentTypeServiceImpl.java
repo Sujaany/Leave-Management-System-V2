@@ -52,4 +52,10 @@ public class RecuitmentTypeServiceImpl implements RecuitmentTypeService {
 //		return null;
 	}
 
+	@Override
+	public Boolean existsByRecuitmentType(String recuitmentType) {
+		// TODO Auto-generated method stub
+		return recuitmentTypeRepository.existsByRecuitmentType(recuitmentType);
+	}
+
 }

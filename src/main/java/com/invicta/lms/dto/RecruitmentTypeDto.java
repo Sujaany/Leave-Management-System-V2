@@ -1,6 +1,6 @@
 package com.invicta.lms.dto;
 
-public class RecuitmentTypeDto {
+public class RecruitmentTypeDto {
 
 	private Long id;
 	private String recuitmentType;

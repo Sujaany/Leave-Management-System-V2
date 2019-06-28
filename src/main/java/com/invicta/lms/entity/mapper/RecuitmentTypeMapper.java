@@ -3,21 +3,21 @@ package com.invicta.lms.entity.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.invicta.lms.dto.RecuitmentTypeDto;
+import com.invicta.lms.dto.RecruitmentTypeDto;
 import com.invicta.lms.entity.RecuitmentType;
 
 public class RecuitmentTypeMapper {
-	public static RecuitmentTypeDto mapRecuitmentTypeToRecuitmentTypeDto(RecuitmentType recuitmentType) {
-		RecuitmentTypeDto recuitmentTypeDto = new RecuitmentTypeDto();
-		recuitmentTypeDto.setId(recuitmentType.getId());
-		recuitmentTypeDto.setRecuitmentType(recuitmentType.getRecuitmentType());
+	public static RecruitmentTypeDto mapRecuitmentTypeToRecuitmentTypeDto(RecuitmentType recuitmentType) {
+		RecruitmentTypeDto recruitmentTypeDto = new RecruitmentTypeDto();
+		recruitmentTypeDto.setId(recuitmentType.getId());
+		recruitmentTypeDto.setRecuitmentType(recuitmentType.getRecuitmentType());
 
-		return recuitmentTypeDto;
+		return recruitmentTypeDto;
 	}
 
-	public static List<RecuitmentTypeDto> mapRecuitmentTypeListToRecuitmentTypeDtoList(
+	public static List<RecruitmentTypeDto> mapRecuitmentTypeListToRecuitmentTypeDtoList(
 			List<RecuitmentType> recuitmentTypeList) {
-		List<RecuitmentTypeDto> recuitmentTypeDtoList = new ArrayList<RecuitmentTypeDto>();
+		List<RecruitmentTypeDto> recuitmentTypeDtoList = new ArrayList<RecruitmentTypeDto>();
 		if (recuitmentTypeList != null) {
 			for (RecuitmentType recuitmentType : recuitmentTypeList) {
 				recuitmentTypeDtoList.add(mapRecuitmentTypeToRecuitmentTypeDto(recuitmentType));

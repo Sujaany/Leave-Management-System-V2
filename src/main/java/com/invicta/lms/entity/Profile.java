@@ -6,7 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Profile implements Serializable {
@@ -18,25 +21,44 @@ public class Profile implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
+//	@OneToOne(fetch = FetchType.LAZY,
+//            cascade =  CascadeType.ALL,
+//            mappedBy = "user")
 	@OneToOne
-	private User userid;
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@NotBlank
+    @Size(max = 40)
 	private String firstName;
+	
+	@NotBlank
+    @Size(max = 40)
 	private String lastName;
+	
+	@NotBlank
+    @Size(max = 40)
 	private String address;
+	
+	@NotBlank
+    @Size(max = 10)
 	private Integer telephoneNo;
-	public Integer getId() {
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public User getUserid() {
-		return userid;
+	
+	
+	public User getUser() {
+		return user;
 	}
-	public void setUserid(User userid) {
-		this.userid = userid;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getFirstName() {
 		return firstName;
