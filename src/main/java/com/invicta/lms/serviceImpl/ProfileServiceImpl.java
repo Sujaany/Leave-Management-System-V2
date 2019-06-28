@@ -29,7 +29,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public Integer deleteProfile(Integer id) {
+	public Long deleteProfile(Long id) {
 		if (profileRepository.getOne(id) != null) {
 			profileRepository.deleteById(id);
 			return id;
@@ -38,7 +38,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public Profile updateProfile(Integer id, Profile profile) {
+	public Profile updateProfile(Long id, Profile profile) {
 		if (profileRepository.getOne(id) != null) {
 			profile.setId(id);
 			return profileRepository.save(profile);
@@ -47,7 +47,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public Profile findProfileById(Integer id) {
+	public Profile findProfileById(Long id) {
 		if (profileRepository.getOne(id) != null) {
 			return profileRepository.findProfileById(id);
 		}

@@ -10,5 +10,5 @@ public interface RecuitmentTypeService {
 	Long deleteRecuitmentType(Long id);
 	RecuitmentType updateRecuitmentType(Long id,RecuitmentType recuitmentType);
 	RecuitmentType findRecuitmentTypeById(Long id);
-
+	Boolean existsByRecuitmentType(String recuitmentType);
 }

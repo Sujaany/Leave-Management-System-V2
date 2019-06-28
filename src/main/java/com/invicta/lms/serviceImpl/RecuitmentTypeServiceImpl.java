@@ -37,19 +37,19 @@ public class RecuitmentTypeServiceImpl implements RecuitmentTypeService {
 
 	@Override
 	public RecuitmentType updateRecuitmentType(Long id, RecuitmentType recuitmentType) {
-//		if (recuitmentTypeRepository.getOne(id) != null) {
-			recuitmentType.setId(id);
-			return recuitmentTypeRepository.save(recuitmentType);
-//		}
-//		return null;
+		recuitmentType.setId(id);
+		return recuitmentTypeRepository.save(recuitmentType);
 	}
 
 	@Override
 	public RecuitmentType findRecuitmentTypeById(Long id) {
-//		if (recuitmentTypeRepository.getOne(id) != null) {
-			return recuitmentTypeRepository.findRecuitmentTypeById(id);
-//		}
-//		return null;
+		return recuitmentTypeRepository.findRecuitmentTypeById(id);
+
+	}
+
+	@Override
+	public Boolean existsByRecuitmentType(String recuitmentType) {
+		return recuitmentTypeRepository.existsByRecuitmentType(recuitmentType);
 	}
 
 }

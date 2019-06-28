@@ -2,6 +2,7 @@ package com.invicta.lms.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.invicta.lms.dto.RecuitmentTypeDto;
+import com.invicta.lms.dto.RecruitmentTypeDto;
 import com.invicta.lms.dto.mapper.RecuitmentTypeDtoMapper;
 import com.invicta.lms.entity.RecuitmentType;
 import com.invicta.lms.entity.mapper.RecuitmentTypeMapper;
 import com.invicta.lms.service.RecuitmentTypeService;
+import com.invicta.lms.validation.RecruitmentTypeValidation;
 
 @RestController
 @RequestMapping("/recuitmentType")
@@ -26,9 +28,12 @@ public class RecuitmentTypeController {
 
 	@Autowired
 	RecuitmentTypeService recuitmentTypeService;
+	
+	@Autowired
+	RecruitmentTypeValidation recruitmentTypeValidation;
 
 	@GetMapping
-	public ResponseEntity<List<RecuitmentTypeDto>> getRecuitmentType() {
+	public ResponseEntity<List<RecruitmentTypeDto>> getRecuitmentType() {
 		return new ResponseEntity<>(RecuitmentTypeMapper.mapRecuitmentTypeListToRecuitmentTypeDtoList(
 				recuitmentTypeService.viewAllRecuitmentType()), HttpStatus.OK);
 	}
@@ -43,19 +48,26 @@ public class RecuitmentTypeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> addRecuitmentType(@RequestBody RecuitmentTypeDto recuitmentTypeDto) {
+	public ResponseEntity<?> addRecuitmentType(@RequestBody RecruitmentTypeDto recruitmentTypeDto) {
+	
+		recruitmentTypeValidation.validateRecruitmentType(recruitmentTypeDto);
+		 if(!recruitmentTypeValidation.getErrors().isEmpty()) {
+			 return new ResponseEntity<>(recruitmentTypeValidation.getErrors(),HttpStatus.BAD_REQUEST);
+		 }
+		
+		
 		return new ResponseEntity<>(
 				RecuitmentTypeMapper.mapRecuitmentTypeToRecuitmentTypeDto(recuitmentTypeService.addRecuitmentType(
-						RecuitmentTypeDtoMapper.mapRecuitmentTypeDtoToRecuitmentType(recuitmentTypeDto))),
+						RecuitmentTypeDtoMapper.mapRecuitmentTypeDtoToRecuitmentType(recruitmentTypeDto))),
 				HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateRecuitmentType(@RequestBody RecuitmentTypeDto recuitmentTypeDto,
+	public ResponseEntity<?> updateRecuitmentType(@RequestBody RecruitmentTypeDto recruitmentTypeDto,
 			@PathVariable Long id) {
 		return new ResponseEntity<RecuitmentType>(
 				recuitmentTypeService.updateRecuitmentType(id,
-						RecuitmentTypeDtoMapper.mapRecuitmentTypeDtoToRecuitmentType(recuitmentTypeDto)),
+						RecuitmentTypeDtoMapper.mapRecuitmentTypeDtoToRecuitmentType(recruitmentTypeDto)),
 				HttpStatus.OK);
 	}
 
