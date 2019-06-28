@@ -23,27 +23,27 @@ public class DesignationController {
 	@Autowired
 	DesignationService designationService;
 
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<?> addDesignation(@RequestBody Designation designation){
 		return new ResponseEntity<>(designationService.addDesignation(designation),HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/get")
+	@GetMapping
 	public ResponseEntity<List<Designation>> getDesignation(){
 		return new ResponseEntity<List<Designation>>(designationService.viewAllDesignation(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/get/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?>getDesignationById(@PathVariable("id") Long id){
 		return new ResponseEntity<Designation>(designationService.findDesignationById(id), HttpStatus.OK);
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Designation>updateDesignation(@RequestBody Designation designation,@PathVariable("id") Long id){
 		return new ResponseEntity<Designation>(designationService.updateDesignation(id, designation), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?>deleteById(@PathVariable("id") Long id){
 		return new ResponseEntity<>(designationService.deleteDesignation(id), HttpStatus.OK);
 	}
