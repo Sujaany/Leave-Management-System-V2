@@ -11,6 +11,7 @@ public interface UserService {
 	Long deleteUser(Long id);
 	User updateUser(Long id,User user,Role role);
 	User findUserById(Long id);
+	User changedStatus(Long id,Boolean status );
 }
 
 
