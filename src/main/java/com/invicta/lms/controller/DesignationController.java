@@ -18,7 +18,6 @@ import com.invicta.lms.entity.Designation;
 import com.invicta.lms.service.DesignationService;
 import com.invicta.lms.validation.DesignationValidation;
 
-
 @RestController
 @RequestMapping("designation")
 public class DesignationController {
