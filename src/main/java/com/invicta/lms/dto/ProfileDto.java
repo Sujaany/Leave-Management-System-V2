@@ -1,7 +1,5 @@
 package com.invicta.lms.dto;
 
-import com.invicta.lms.entity.User;
-
 public class ProfileDto {
 	private Long id;
 	private String userName;

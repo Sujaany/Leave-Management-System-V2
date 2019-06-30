@@ -14,10 +14,10 @@ public class RecruitmentTypeValidation {
 	@Autowired
 	RecuitmentTypeService recuitmentTypeService;
 
-	Map<String, String> errors = new HashMap<String, String>();
+	Map<String, String> errors = new HashMap<>();
 
 	public void validateRecruitmentType(RecruitmentTypeDto recruitmentTypeDto) {
-		
+
 		errors.clear();
 
 		if (recruitmentTypeDto.getRecuitmentType() == null) {

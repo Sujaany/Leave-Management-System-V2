@@ -3,9 +3,11 @@ package com.invicta.lms.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.invicta.lms.enums.LeaveRequestStatus;
@@ -20,7 +22,8 @@ public class LeaveRequest {
 	@ManyToOne
 	private User user;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY,optional = false)
+	@JoinColumn(name="leave_type_id", nullable =false)
 	private LeaveType leaveType;
 	
 	private Date startDate;

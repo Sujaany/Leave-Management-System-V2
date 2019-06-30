@@ -28,7 +28,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	}
 
 	@Override
-	public Integer deleteLeaveType(Integer id) {
+	public Long deleteLeaveType(Long id) {
 		if (leaveTypeRepository.getOne(id) != null) {
 			leaveTypeRepository.deleteById(id);
 			return id;
@@ -37,7 +37,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	}
 
 	@Override
-	public LeaveType updateLeaveType(Integer id, LeaveType leaveType) {
+	public LeaveType updateLeaveType(Long id, LeaveType leaveType) {
 		if (leaveTypeRepository.getOne(id) != null) {
 			leaveType.setId(id);
 			return leaveTypeRepository.save(leaveType);
@@ -46,10 +46,16 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	}
 
 	@Override
-	public LeaveType findLeaveTypeById(Integer id) {
+	public LeaveType findLeaveTypeById(Long id) {
 		if (leaveTypeRepository.getOne(id) != null) {
 			return leaveTypeRepository.findLeaveTypeById(id);
 		}
 		return null;
+	}
+
+	@Override
+	public Boolean existsByleaveType(String leaveType) {
+		return leaveTypeRepository.existsByleaveType(leaveType);
+		 
 	}
 }
