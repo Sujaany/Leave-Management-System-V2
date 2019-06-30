@@ -1,6 +1,8 @@
 package com.invicta.lms.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.invicta.lms.dto.RecruitmentTypeDto;
 import com.invicta.lms.dto.mapper.RecuitmentTypeDtoMapper;
@@ -64,14 +68,43 @@ public class RecuitmentTypeController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateRecuitmentType(@RequestBody RecruitmentTypeDto recruitmentTypeDto,
 			@PathVariable Long id) {
+		recruitmentTypeValidation.validateRecruitmentType(recruitmentTypeDto);
+		if (!recruitmentTypeValidation.getErrors().isEmpty()) {
+			return new ResponseEntity<>(recruitmentTypeValidation.getErrors(),HttpStatus.BAD_REQUEST);	
+		}
 		return new ResponseEntity<RecuitmentType>(
 				recuitmentTypeService.updateRecuitmentType(id,
 						RecuitmentTypeDtoMapper.mapRecuitmentTypeDtoToRecuitmentType(recruitmentTypeDto)),
 				HttpStatus.OK);
 	}
+	
+//	public ResponseEntity<?> updateLeaveType(@RequestBody LeaveTypeDto leaveTypeDto, @PathVariable Long id) {
+//		leaveTypeValidation.validationLeaveType(leaveTypeDto);
+//		if (!leaveTypeValidation.getErrors().isEmpty()) {
+//			return new ResponseEntity<>(leaveTypeValidation.getErrors(), HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<LeaveType>(leaveTypeService.updateLeaveType(id,
+//				LeaveTypeSaveDtoMapper.mapLeaveTypesaveDtoToLeaveType(leaveTypeDto)), HttpStatus.OK);
+//	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteRecuitmentType(@PathVariable Long id) {
 		return new ResponseEntity<>(recuitmentTypeService.deleteRecuitmentType(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/checkAvailability")
+	public ResponseEntity<?> recuitmentTypeAvailability(@RequestParam(value = "recuitmentType") String recuitmentType) {
+		Map<String, String> errors = new HashMap<>();
+
+		errors.clear();
+		if (recuitmentTypeService.existsByRecuitmentType(recuitmentType)) {
+			errors.put("RecuitmentType", "Recuitment Type Already exist");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+		}
+
+		errors.put("RecuitmentType", "Not exist");
+
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(errors);
+
 	}
 }
