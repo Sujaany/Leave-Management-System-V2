@@ -6,6 +6,7 @@ import com.invicta.lms.entity.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 	Role findRoleById(Long id);
+	Boolean existsByRoleName(String role);
 	
 		
 }

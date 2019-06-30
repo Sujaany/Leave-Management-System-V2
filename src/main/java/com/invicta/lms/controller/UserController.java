@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.invicta.lms.dto.UserDto;
+import com.invicta.lms.dto.UserDtoResponse;
 import com.invicta.lms.dto.UserDtoRequest;
 import com.invicta.lms.dto.mapper.UserSaveDtoMapper;
 import com.invicta.lms.entity.mapper.UserMapper;
@@ -42,7 +42,7 @@ public class UserController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<UserDto>> getUsers() {
+	public ResponseEntity<List<UserDtoResponse>> getUsers() {
 		return new ResponseEntity<>(UserMapper.mapUserListToUserDtoList(userService.viewAllUser()), HttpStatus.OK);
 	}
 	
@@ -60,6 +60,12 @@ public class UserController {
 
 		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userDtoRequest),
 				roleService.findRoleById(userDtoRequest.getRole()))), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/{id}/{status}")
+	public ResponseEntity<?> updateUserStatus(@RequestBody UserDtoRequest userDtoRequest, @PathVariable("id") Long id,@PathVariable("status") Boolean status ){
+
+		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.changedStatus(id, status)), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
