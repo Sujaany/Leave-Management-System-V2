@@ -53,6 +53,11 @@ public class DesignationServiceImpl implements DesignationService{
 		}
 		return null;
 	}
+
+	@Override
+	public Boolean existsByDesignation(String designation) {
+		return designationRepository.existsByDesignation(designation);
+	}
 	
 
 }

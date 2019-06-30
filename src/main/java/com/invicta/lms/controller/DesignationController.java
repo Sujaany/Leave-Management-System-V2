@@ -16,15 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.invicta.lms.entity.Designation;
 import com.invicta.lms.service.DesignationService;
+import com.invicta.lms.validation.DesignationValidation;
+import com.invicta.lms.validation.RecruitmentTypeValidation;
 
 @RestController
 @RequestMapping("designation")
 public class DesignationController {
 	@Autowired
 	DesignationService designationService;
+	
+	@Autowired
+	DesignationValidation designationValidation;
+
 
 	@PostMapping
 	public ResponseEntity<?> addDesignation(@RequestBody Designation designation){
+		
+		designationValidation.validateDesignation(designation);
+		 if(!designationValidation.getErrors().isEmpty()) {
+			 return new ResponseEntity<>(designationValidation.getErrors(),HttpStatus.BAD_REQUEST);
+		 }
+		
 		return new ResponseEntity<>(designationService.addDesignation(designation),HttpStatus.CREATED);
 	}
 	

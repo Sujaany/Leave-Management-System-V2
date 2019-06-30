@@ -11,4 +11,6 @@ public interface DesignationService {
 	Long deleteDesignation(Long id);
 	Designation updateDesignation(Long id,Designation designation);
 	Designation findDesignationById(Long id);
+	Boolean existsByDesignation(String designation);
+
 }

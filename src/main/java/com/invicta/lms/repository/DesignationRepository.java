@@ -6,4 +6,6 @@ import com.invicta.lms.entity.Designation;
 
 public interface DesignationRepository extends JpaRepository<Designation, Long>{
 	Designation findDesignationById(Long id);
+
+	Boolean existsByDesignation(String designation);
 }
