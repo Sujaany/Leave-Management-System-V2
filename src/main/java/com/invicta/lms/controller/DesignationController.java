@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.invicta.lms.entity.Designation;
 import com.invicta.lms.service.DesignationService;
 import com.invicta.lms.validation.DesignationValidation;
-import com.invicta.lms.validation.RecruitmentTypeValidation;
+
 
 @RestController
 @RequestMapping("designation")

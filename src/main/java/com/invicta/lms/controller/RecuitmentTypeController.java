@@ -78,14 +78,6 @@ public class RecuitmentTypeController {
 				HttpStatus.OK);
 	}
 	
-//	public ResponseEntity<?> updateLeaveType(@RequestBody LeaveTypeDto leaveTypeDto, @PathVariable Long id) {
-//		leaveTypeValidation.validationLeaveType(leaveTypeDto);
-//		if (!leaveTypeValidation.getErrors().isEmpty()) {
-//			return new ResponseEntity<>(leaveTypeValidation.getErrors(), HttpStatus.BAD_REQUEST);
-//		}
-//		return new ResponseEntity<LeaveType>(leaveTypeService.updateLeaveType(id,
-//				LeaveTypeSaveDtoMapper.mapLeaveTypesaveDtoToLeaveType(leaveTypeDto)), HttpStatus.OK);
-//	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteRecuitmentType(@PathVariable Long id) {
