@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.invicta.lms.dto.DesignationDto;
 import com.invicta.lms.entity.Designation;
 import com.invicta.lms.service.DesignationService;
 
@@ -16,22 +17,24 @@ public class DesignationValidation {
 
 	Map<String, String> errors = new HashMap<String, String>();
 
-	public void validateDesignation(Designation designation) {
+	public void validateDesignation(DesignationDto designationDto) {
 		
 		errors.clear();
 
-		if (designation.getDesignation() == null) {
+		if (designationDto.getDesignation() == null) {
 			errors.put("designation", "designation cannot be null");
 		}
 
-		if (designation.getDesignation() == "") {
+		if (designationDto.getDesignation() == "") {
 			errors.put("designation", "designation cannot be Empty");
 		}
 
-		if (designationService.existsByDesignation(designation.getDesignation())) {
+		if (designationService.existsByDesignation(designationDto.getDesignation())) {
 			errors.put("designation", "Designation Already exist");
 		}
-
+//		if(designationService.findDesignationById(designationDto.getId())) {
+//			errors.put("designation", "Id Exist");
+//		}
 	}
 
 	public Map<String, String> getErrors() {
