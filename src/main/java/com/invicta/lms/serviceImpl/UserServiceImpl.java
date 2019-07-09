@@ -3,11 +3,13 @@ package com.invicta.lms.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.invicta.lms.entity.Role;
 import com.invicta.lms.entity.User;
 import com.invicta.lms.enums.UserStatus;
+import com.invicta.lms.repository.RoleRepository;
 import com.invicta.lms.repository.UserRepository;
 import com.invicta.lms.service.UserService;
 
@@ -15,11 +17,17 @@ import com.invicta.lms.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	RoleRepository roleRepository;
 
 	@Override
 	public User addUser(User user, Role role) {
 		if (user != null) {
 			user.setUserStatus(UserStatus.ACTIVE_USER);
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			user.setRole(role);
 			return userRepository.save(user);
 		}
@@ -73,6 +81,17 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public Boolean existsByUsername(String username) {
+		return userRepository.existsByUserName(username);
+	}
+
+	@Override
+	public Boolean existsByEmail(String email) {
+
+		return userRepository.existsByEmail(email);
 	}
 
 }

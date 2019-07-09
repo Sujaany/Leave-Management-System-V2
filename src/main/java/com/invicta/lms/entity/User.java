@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -32,28 +31,42 @@ public class User extends DateAudit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
-    @Size(max = 40)
+	@Size(max = 40)
 	private String userName;
 
 	@NotNull
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//	//private Set<Role> roles;
 	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
-	
-	@Column(name="user_status")
+	 @JoinColumn(name = "role_id")
+	 private Role role;
+
+	@Column(name = "user_status")
 	private UserStatus userStatus;
-	
-//	@NaturalId
-    @NotBlank
-    @Size(max = 40)
-    @Email
+
+	@NaturalId
+	@Column(unique = true)
+	@NotBlank
+	@Size(max = 40)
+	@Email
 	private String email;
-	
-//	 @NotBlank
-	 @Size(max = 100)
+
+	@NotBlank
+	@Size(max = 100)
 	private String password;
+
+	public User() {
+
+	}
+
+	public User(String userName,Role role, String email, String password, UserStatus userStatus) {
+		this.userName = userName;
+		this.userStatus = userStatus;
+		this.role = role;
+		this.email = email;
+		this.password = password;
+	}
 
 	public Long getId() {
 		return id;
@@ -78,6 +91,14 @@ public class User extends DateAudit {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+//	public Set<Role> getRoles() {
+//		return roles;
+//	}
+//
+//	public void setRoles(Set<Role> roles) {
+//		this.roles = roles;
+//	}
 
 	public String getEmail() {
 		return email;

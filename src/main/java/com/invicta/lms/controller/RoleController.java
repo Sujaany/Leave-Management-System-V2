@@ -29,14 +29,13 @@ public class RoleController {
 
 	@Autowired
 	RoleService roleService;
-	
+
 	@Autowired
 	RoleValidation roleValidation;
 
 	@GetMapping
 	public ResponseEntity<List<RoleDto>> getRole() {
-		return new ResponseEntity<>(RoleMapper.mapRoleListToRoleDtoList(roleService.viewAllRole()),
-				HttpStatus.OK);
+		return new ResponseEntity<>(RoleMapper.mapRoleListToRoleDtoList(roleService.viewAllRole()), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -49,12 +48,12 @@ public class RoleController {
 
 	@PostMapping
 	public ResponseEntity<?> addRole(@RequestBody RoleDto roleDto) {
-		
+
 		roleValidation.validateRole(roleDto);
-		 if(!roleValidation.getErrors().isEmpty()) {
-			 return new ResponseEntity<>(roleValidation.getErrors(),HttpStatus.BAD_REQUEST);
-		 }
-		 
+		if (!roleValidation.getErrors().isEmpty()) {
+			return new ResponseEntity<>(roleValidation.getErrors(), HttpStatus.BAD_REQUEST);
+		}
+
 		return new ResponseEntity<>(
 				RoleMapper.mapRoleToRoleDto(roleService.addRole(RoleDtoMapper.mapRoleDtoToRole(roleDto))),
 				HttpStatus.CREATED);

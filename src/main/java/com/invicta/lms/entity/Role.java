@@ -25,6 +25,14 @@ public class Role implements Serializable {
 	@Size(max = 30)
 	@Column(unique = true)
 	private String roleName;
+	
+	public Role () {
+		
+	}
+
+	public Role(@NotNull @Size(max = 30) String roleName) {
+		this.roleName = roleName;
+	}
 
 	public Long getId() {
 		return id;

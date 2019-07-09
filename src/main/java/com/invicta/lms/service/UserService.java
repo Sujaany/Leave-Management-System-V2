@@ -12,6 +12,8 @@ public interface UserService {
 	User updateUser(Long id,User user,Role role);
 	User findUserById(Long id);
 	User changedStatus(Long id,Boolean status );
+	Boolean existsByUsername(String username);
+	Boolean existsByEmail(String email);
 }
 
 

@@ -52,8 +52,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Boolean existsByRole(String role) {
-		return roleRepository.existsByRoleName(role);
+	public Boolean existsByRole(String roleName) {
+		return roleRepository.existsByRoleName(roleName);
 	}
 
 }

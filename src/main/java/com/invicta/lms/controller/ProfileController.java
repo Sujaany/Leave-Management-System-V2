@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.invicta.lms.entity.Profile;
 import com.invicta.lms.service.ProfileService;
 
-
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {

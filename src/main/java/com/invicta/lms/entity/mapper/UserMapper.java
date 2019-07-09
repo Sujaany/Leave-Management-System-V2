@@ -19,6 +19,7 @@ public class UserMapper {
 		role.setRoleName(user.getRole().getRoleName());
 		
 		userDtoResponse.setRole(role);
+		userDtoResponse.setPassword(user.getPassword());
 		if(user.getUserStatus().name()=="ACTIVE_USER") {
 			userDtoResponse.setUserStatus(true);
 		}else {

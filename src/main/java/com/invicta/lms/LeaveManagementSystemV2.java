@@ -6,8 +6,13 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
+@EntityScan(basePackageClasses = {
+		LeaveManagementSystemV2.class
+		//Jsr310JpaConverters.class
+})
 public class LeaveManagementSystemV2 {
 	@PostConstruct
 	void init() {

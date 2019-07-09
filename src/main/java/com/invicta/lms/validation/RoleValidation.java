@@ -21,15 +21,15 @@ public class RoleValidation {
 		errors.clear();
 
 		if (roleDto.getRoleName() == null) {
-			errors.put("role", "Role cannot be null");
+			errors.put("roleName", "Role cannot be null");
 		}
 
 		if (roleDto.getRoleName() == "") {
-			errors.put("role", "Role cannot be Empty");
+			errors.put("roleName", "Role cannot be Empty");
 		}
 
 		if (roleService.existsByRole(roleDto.getRoleName())) {
-			errors.put("role", "Role Already exist");
+			errors.put("roleName", "Role Already exist");
 		}
 
 	}

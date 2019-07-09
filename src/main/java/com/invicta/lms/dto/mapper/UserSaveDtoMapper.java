@@ -11,6 +11,7 @@ public class UserSaveDtoMapper {
 		user.setId(userDtoRequest.getId());
 		user.setUserName(userDtoRequest.getUserName());
 		user.setEmail(userDtoRequest.getEmail());
+		user.setPassword(userDtoRequest.getPassword());
 		Role role = new Role();
 		role.setId(userDtoRequest.getRole());
 		return user;

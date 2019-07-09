@@ -19,6 +19,8 @@ public class UserDtoRequest {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+	
 	public Long getRole() {
 		return role;
 	}
