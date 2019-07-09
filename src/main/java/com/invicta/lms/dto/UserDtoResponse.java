@@ -3,7 +3,7 @@ package com.invicta.lms.dto;
 public class UserDtoResponse {
 	private Long id;
 	private String userName;
-	private String roleName;
+	private RoleDto role;
 	private String email;
 	private Boolean userStatus;
 	
@@ -19,12 +19,7 @@ public class UserDtoResponse {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getRoleName() {
-		return roleName;
-	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -36,6 +31,12 @@ public class UserDtoResponse {
 	}
 	public void setUserStatus(Boolean userStatus) {
 		this.userStatus = userStatus;
+	}
+	public RoleDto getRole() {
+		return role;
+	}
+	public void setRole(RoleDto role) {
+		this.role = role;
 	}
 	
 	

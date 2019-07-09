@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -19,7 +21,7 @@ import com.invicta.lms.entity.audit.DateAudit;
 import com.invicta.lms.enums.UserStatus;
 
 @Entity
-@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }),
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "userName" }),
 		@UniqueConstraint(columnNames = { "email" }) })
 public class User extends DateAudit {
 	/**
@@ -36,13 +38,14 @@ public class User extends DateAudit {
 	@NotNull
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
 	
 	@Column(name="user_status")
 	private UserStatus userStatus;
 	
-	@NaturalId
+//	@NaturalId
     @NotBlank
     @Size(max = 40)
     @Email

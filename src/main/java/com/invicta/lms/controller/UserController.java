@@ -63,7 +63,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}/{status}")
-	public ResponseEntity<?> updateUserStatus(@RequestBody UserDtoRequest userDtoRequest, @PathVariable("id") Long id,@PathVariable("status") Boolean status ){
+	public ResponseEntity<?> updateUserStatus(@PathVariable("id") Long id,@PathVariable("status") Boolean status ){
 
 		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.changedStatus(id, status)), HttpStatus.OK);
 	}

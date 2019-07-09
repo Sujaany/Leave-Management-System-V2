@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateUser(Long id, User user, Role role) {
 		if (userRepository.getOne(id) != null) {
+			user.setUserStatus(UserStatus.ACTIVE_USER);
 			user.setId(id);
 			user.setRole(role);
 			return userRepository.save(user);
