@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html",
 						"/**/*.css", "/**/*.js")
 				.permitAll().antMatchers("/auth/**").permitAll()
-		.antMatchers(HttpMethod.GET,"/leaveType/**").authenticated();
+		.antMatchers(HttpMethod.GET,"/leaveType/**").permitAll();
 		// "/api/user/checkEmailAvailability").permitAll()
 		// .antMatchers(HttpMethod.GET, "/api/polls/**",
 		// "/api/users/**").permitAll().anyRequest().authenticated();
