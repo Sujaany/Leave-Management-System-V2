@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.polls.payload.JwtAuthenticationResponse;
+
+import com.invicta.lms.dto.JwtAuthenticationDtoResponse;
 import com.invicta.lms.dto.LoginDtoRequest;
 import com.invicta.lms.dto.UserDtoRequest;
 import com.invicta.lms.dto.mapper.UserSaveDtoMapper;
@@ -54,7 +55,7 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		String jwt = tokenProvider.generateToken(authentication);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+		return ResponseEntity.ok(new JwtAuthenticationDtoResponse(jwt));
 	}
 
 	@PostMapping("/signup")
