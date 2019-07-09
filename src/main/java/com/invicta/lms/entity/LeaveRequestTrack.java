@@ -10,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.invicta.lms.enums.LeaveRequestTrackType;
 
 @Entity
+@Table(name="leave_request_track",schema="leave_system")
 public class LeaveRequestTrack {
 	
 	@Id

@@ -20,7 +20,7 @@ import com.invicta.lms.entity.audit.DateAudit;
 import com.invicta.lms.enums.UserStatus;
 
 @Entity
-@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "userName" }),
+@Table(name = "users",schema="leave_system", uniqueConstraints = { @UniqueConstraint(columnNames = { "userName" }),
 		@UniqueConstraint(columnNames = { "email" }) })
 public class User extends DateAudit {
 	/**
