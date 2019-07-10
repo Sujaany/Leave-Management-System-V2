@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import com.invicta.lms.enums.LeaveRequestTrackType;
 
 @Entity
-@Table(name="leaveRequestTrack")
+@Table(name="leave_request_track",schema="leave_system")
 public class LeaveRequestTrack {
 	
 	@Id

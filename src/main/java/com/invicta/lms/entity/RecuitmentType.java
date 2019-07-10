@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "recuitmentType")
+@Table(name = "recuitmentType",schema="leave_system")
 public class RecuitmentType {
 
 	@Id

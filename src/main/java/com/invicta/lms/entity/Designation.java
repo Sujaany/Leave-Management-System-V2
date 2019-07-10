@@ -8,8 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Table(name="designation",schema="leave_system")
 @Entity
-@Table(name="designation")
 public class Designation implements Serializable {
 	/**
 	 * 

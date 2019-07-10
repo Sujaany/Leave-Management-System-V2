@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="profile")
+@Table(name="profile",schema="leave_system")
 public class Profile implements Serializable {
 
 	/**

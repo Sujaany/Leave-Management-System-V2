@@ -12,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.invicta.lms.enums.LeaveProcessType;
 
 @Entity
+@Table(name = "User_leave_count",schema="leave_system")
 public class UserLeaveCount {
 
 	@Id

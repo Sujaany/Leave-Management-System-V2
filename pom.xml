@@ -52,6 +52,7 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.0</version>
 		</dependency>
+		
 		<!-- Spring basic security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -59,12 +60,13 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.15</version><!--$NO-MVN-MAN-VER$-->
-			
-		</dependency>
+			<dependency>
+			    <groupId>mysql</groupId>
+			    <artifactId>mysql-connector-java</artifactId>
+			    <version>8.0.15</version><!--$NO-MVN-MAN-VER$-->
+			    <scope>runtime</scope>
+			</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
