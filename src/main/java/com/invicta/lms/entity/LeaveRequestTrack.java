@@ -2,18 +2,22 @@ package com.invicta.lms.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.invicta.lms.enums.LeaveRequestTrackType;
 
 @Entity
+@Table(name="leaveRequestTrack")
 public class LeaveRequestTrack {
 	
 	@Id
@@ -23,10 +27,10 @@ public class LeaveRequestTrack {
 	@Enumerated(EnumType.STRING)
 	private LeaveRequestTrackType leaveRequestTrackType;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private LeaveRequest leaveRequest;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name = "process_by")
 	private User processedBy;
 	

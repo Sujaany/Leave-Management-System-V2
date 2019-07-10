@@ -1,7 +1,9 @@
 package com.invicta.lms.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +15,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.NaturalId;
 
 import com.invicta.lms.entity.audit.DateAudit;
 import com.invicta.lms.enums.UserStatus;
@@ -38,7 +38,7 @@ public class User extends DateAudit {
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 //	//private Set<Role> roles;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	 @JoinColumn(name = "role_id")
 	 private Role role;
 

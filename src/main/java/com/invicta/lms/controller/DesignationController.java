@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.invicta.lms.dto.DesignationDto;
-import com.invicta.lms.dto.DesignationSaveDto;
 import com.invicta.lms.dto.mapper.DesignationSaveDtoMapper;
 import com.invicta.lms.entity.Designation;
 import com.invicta.lms.entity.mapper.DesignationMapper;

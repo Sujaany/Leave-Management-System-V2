@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.invicta.lms.dto.DesignationDto;
-import com.invicta.lms.entity.Designation;
 import com.invicta.lms.service.DesignationService;
 
 @Service
