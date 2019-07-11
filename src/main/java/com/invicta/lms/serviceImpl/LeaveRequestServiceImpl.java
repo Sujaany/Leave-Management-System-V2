@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.invicta.lms.entity.LeaveRequest;
+import com.invicta.lms.entity.LeaveType;
+import com.invicta.lms.entity.User;
+import com.invicta.lms.enums.LeaveRequestStatus;
 import com.invicta.lms.repository.LeaveRequestRepository;
 import com.invicta.lms.service.LeaveRequestService;
 
@@ -16,8 +19,11 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	LeaveRequestRepository leaveRequestRepository;
 	
 	@Override
-	public LeaveRequest addLeaveRequest(LeaveRequest leaveRequest) {
+	public LeaveRequest addLeaveRequest(LeaveRequest leaveRequest,User user,LeaveType leaveType) {
 		if(leaveRequest != null) {
+			leaveRequest.setLeaveRequestStatus(LeaveRequestStatus.PENDING);
+			leaveRequest.setRequestedBy(user);
+			leaveRequest.setLeaveType(leaveType);
 			return leaveRequestRepository.save(leaveRequest);
 		}
 		return null;
@@ -38,9 +44,12 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		}
 
 	@Override
-	public LeaveRequest updateLeaveRequest(Long id, LeaveRequest leaveRequest) {
+	public LeaveRequest updateLeaveRequest(Long id, LeaveRequest leaveRequest,User user,LeaveType leaveType) {
 		if(leaveRequestRepository.getOne(id)!= null) {
 			leaveRequest.setId(id);
+			leaveRequest.setLeaveRequestStatus(LeaveRequestStatus.PENDING);
+			leaveRequest.setRequestedBy(user);
+			leaveRequest.setLeaveType(leaveType);
 			return leaveRequestRepository.save(leaveRequest);
 		}
 		return null;

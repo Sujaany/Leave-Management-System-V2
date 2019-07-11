@@ -2,6 +2,7 @@ package com.invicta.lms.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,18 +12,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.invicta.lms.entity.audit.DateAudit;
 import com.invicta.lms.enums.LeaveRequestStatus;
 
 @Entity
-@Table(name="leaveRequest")
-public class LeaveRequest {
+@Table(name="leave_request",schema="leave_system")
+public class LeaveRequest extends DateAudit {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3759420037566938271L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne
-	private User user;
+	@JoinColumn(name="user_id", nullable =false)
+	private User requestedBy;
 	
 	@ManyToOne(fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name="leave_type_id", nullable =false)
@@ -32,9 +40,9 @@ public class LeaveRequest {
 	private Date endDate;
 	private Double noOfDays;
 	private String reason;
-	private Date requestedDate;
+//	private Date requestedDate;
 	
-	
+	@Column(name = "leave_request_status")
 	private LeaveRequestStatus leaveRequestStatus;
 	
 	public Long getId() {
@@ -43,11 +51,12 @@ public class LeaveRequest {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public User getUser() {
-		return user;
+	
+	public User getRequestedBy() {
+		return requestedBy;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setRequestedBy(User requestedBy) {
+		this.requestedBy = requestedBy;
 	}
 	public LeaveType getLeaveType() {
 		return leaveType;
@@ -86,11 +95,12 @@ public class LeaveRequest {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public Date getRequestedDate() {
-		return requestedDate;
-	}
-	public void setRequestedDate(Date requestedDate) {
-		this.requestedDate = requestedDate;
-	}	
+	
+//	public Date getRequestedDate() {
+//		return requestedDate;
+//	}
+//	public void setRequestedDate(Date requestedDate) {
+//		this.requestedDate = requestedDate;
+//	}	
 
 }

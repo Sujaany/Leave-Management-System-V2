@@ -20,6 +20,7 @@ import com.invicta.lms.dto.mapper.UserSaveDtoMapper;
 import com.invicta.lms.entity.mapper.UserMapper;
 import com.invicta.lms.service.RoleService;
 import com.invicta.lms.service.UserService;
+import com.invicta.lms.validation.UserValidation;
 
 
 @RestController
@@ -30,10 +31,15 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private UserValidation userValidation;
 
 	@PostMapping
 	public ResponseEntity<?> craeteUser(@RequestBody UserDtoRequest userDtoRequest) {
-
+		userValidation.validationUser(userDtoRequest);
+		if(!userValidation.getErrors().isEmpty()) {
+			return new ResponseEntity<>(userValidation.getErrors(), HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(UserMapper.mapUserToUserDto( 
 				userService.addUser(
 				UserSaveDtoMapper.mapUserSaveDtoToUser(userDtoRequest),
@@ -57,7 +63,10 @@ public class UserController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@RequestBody UserDtoRequest userDtoRequest, @PathVariable("id") Long id) {
-
+		userValidation.validationUser(userDtoRequest);
+		if(!userValidation.getErrors().isEmpty()) {
+			return new ResponseEntity<>(userValidation.getErrors(), HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(UserMapper.mapUserToUserDto(userService.updateUser(id, UserSaveDtoMapper.mapUserSaveDtoToUser(userDtoRequest),
 				roleService.findRoleById(userDtoRequest.getRole()))), HttpStatus.OK);
 	}

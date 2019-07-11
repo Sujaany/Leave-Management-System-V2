@@ -52,7 +52,7 @@ public class User extends DateAudit {
 	@Email
 	private String email;
 
-//	@NotBlank
+	@NotBlank
 	@Size(max = 100)
 	private String password;
 
