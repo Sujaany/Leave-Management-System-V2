@@ -20,15 +20,18 @@ import com.invicta.lms.dto.mapper.LieuLeaveRequestDtoMapper;
 import com.invicta.lms.entity.mapper.LieuLeaveRequestMapper;
 import com.invicta.lms.service.LieuLeaveRequestService;
 import com.invicta.lms.service.UserService;
+import com.invicta.lms.validation.LieuLeaveRequestValidation;
 
 @RestController
 @RequestMapping("/lieuLeaveRequest")
 public class LieuLeaveRequestController {
 
 	@Autowired
-	LieuLeaveRequestService lieuleaveRequestService;
+	private LieuLeaveRequestService lieuleaveRequestService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private LieuLeaveRequestValidation lieuLeaveRequestValidation;
 
 	@GetMapping
 	public ResponseEntity<List<LieuLeaveDtoResponse>> getAllLieuLeaveRequest() {
@@ -40,6 +43,10 @@ public class LieuLeaveRequestController {
 
 	@PostMapping
 	public ResponseEntity<?> applyLieuLeaveRequest(@RequestBody LieuLeaveDtoRequest leaveDtoRequest) {
+		lieuLeaveRequestValidation.validationLieuLeaveRequest(leaveDtoRequest);
+		if (!lieuLeaveRequestValidation.getErrors().isEmpty()) {
+			return new ResponseEntity<>(lieuLeaveRequestValidation.getErrors(), HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(
 				LieuLeaveRequestMapper.mapLieuLeaveRequestToLieuLeaveRequestDto(lieuleaveRequestService.applyLeieuLeave(
 						LieuLeaveRequestDtoMapper.mapLieuLeaveRequestDtoToLieuLeaveRequest(leaveDtoRequest),

@@ -57,7 +57,7 @@ public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
 			}
 
 		} catch (Exception e) {
-			logger.error("---------------LieuLeaveRequest id is  not found ---------------",e.fillInStackTrace());
+			logger.error("---------------LieuLeaveRequest id is  not found ---------------", e.fillInStackTrace());
 			throw new ResourceNotFoundException("Id is", "id", id);
 		}
 		return null;
@@ -65,18 +65,19 @@ public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
 	}
 
 	@Override
-	public LieuLeaveRequest updateLieuLeaveRequest(Long id, LieuLeaveRequest lieuLeaveRequest,User user) {
+	public LieuLeaveRequest updateLieuLeaveRequest(Long id, LieuLeaveRequest lieuLeaveRequest, User user) {
 		try {
 			logger.info("---------------------LieuLeaveRequest Update-------------------");
-			if(lieuLeaveRequestRepository.getOne(id) != null) {
+			if (lieuLeaveRequestRepository.getOne(id) != null) {
 				lieuLeaveRequest.setId(id);
 				lieuLeaveRequest.setUser(user);
 				return lieuLeaveRequestRepository.save(lieuLeaveRequest);
-				
+
 			}
-			
+
 		} catch (Exception e) {
-			logger.error("---------------LieuLeaveRequest UPDATE ID is  not found ---------------",e.fillInStackTrace());
+			logger.error("---------------LieuLeaveRequest UPDATE ID is  not found ---------------",
+					e.fillInStackTrace());
 			throw new ResourceNotFoundException("LieuLeaveRequest UPDATE Id is", "id", id);
 		}
 		return null;
