@@ -26,7 +26,7 @@ public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
 		try {
 			logger.info("LieuLeaveRequest creating");
 			if (lieuLeaveRequest != null) {
-				lieuLeaveRequest.setUser(user);
+				lieuLeaveRequest.setUserId(user);
 				return lieuLeaveRequestRepository.save(lieuLeaveRequest);
 			}
 
@@ -70,7 +70,7 @@ public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
 			logger.info("---------------------LieuLeaveRequest Update-------------------");
 			if (lieuLeaveRequestRepository.getOne(id) != null) {
 				lieuLeaveRequest.setId(id);
-				lieuLeaveRequest.setUser(user);
+				lieuLeaveRequest.setUserId(user);
 				return lieuLeaveRequestRepository.save(lieuLeaveRequest);
 
 			}
@@ -85,10 +85,32 @@ public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
 
 	@Override
 	public LieuLeaveRequest findLieuLeaveRequestById(Long id) {
-		if (lieuLeaveRequestRepository.getOne(id) != null) {
-			return lieuLeaveRequestRepository.findLieuLeaveRequestById(id);
+		try {
+			logger.info("---------------------LieuLeaveRequest Find Lieu Leave Request By Id-------------------");
+			if (lieuLeaveRequestRepository.getOne(id) != null) {
+				return lieuLeaveRequestRepository.findLieuLeaveRequestById(id);
+			}
+		} catch (Exception e) {
+			logger.error("---------------------LieuLeaveRequest Find Lieu Leave Request By Id-------------------",
+					e.fillInStackTrace());
+			throw new ResourceNotFoundException("LieuLeaveRequest Find Lieu Leave Request By Id", "LieuLeaveRequest",
+					id);
 		}
+
 		return null;
+	}
+
+	@Override
+	public List<LieuLeaveRequest> findByUser(Long id) {
+		logger.info("---------------------LieuLeaveRequest Find by User Id-------------------");
+		try {
+			return lieuLeaveRequestRepository.findByUser(id);
+
+		} catch (Exception e) {
+			logger.error("---------------LieuLeaveRequest Find by User Id- ID is  not found ---------------",
+					e.fillInStackTrace());
+			throw new ResourceNotFoundException("LieuLeaveRequest Find by User Id", "userId", id);
+		}
 	}
 
 }

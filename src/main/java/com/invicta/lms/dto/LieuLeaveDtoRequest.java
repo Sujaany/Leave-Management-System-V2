@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class LieuLeaveDtoRequest {
 	private Long id;
-	private Long user;
+	private Long userId;
 	private Date startDate;
 	private Date endDate;
 	private Double workedHours;
@@ -18,12 +18,12 @@ public class LieuLeaveDtoRequest {
 		this.id = id;
 	}
 
-	public Long getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(Long user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Date getStartDate() {

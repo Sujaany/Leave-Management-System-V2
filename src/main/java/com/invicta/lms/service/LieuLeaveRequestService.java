@@ -16,5 +16,8 @@ public interface LieuLeaveRequestService {
 	LieuLeaveRequest updateLieuLeaveRequest(Long id, LieuLeaveRequest lieuLeaveRequest,User user);
 
 	LieuLeaveRequest findLieuLeaveRequestById(Long id);
+	
+	List<LieuLeaveRequest> findByUser(Long id);
+
 
 }

@@ -7,15 +7,14 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @SpringBootApplication
-@EntityScan(basePackageClasses = {
-		LeaveManagementSystemV2.class
-		//Jsr310JpaConverters.class
-})
+@EntityScan(basePackageClasses = { LeaveManagementSystemV2.class, Jsr310JpaConverters.class })
 public class LeaveManagementSystemV2 {
 	@PostConstruct
-	void init() {
+	public void init() {
+		// Setting Spring Boot SetTimeZone
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 	}
 

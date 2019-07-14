@@ -50,7 +50,7 @@ public class LieuLeaveRequestController {
 		return new ResponseEntity<>(
 				LieuLeaveRequestMapper.mapLieuLeaveRequestToLieuLeaveRequestDto(lieuleaveRequestService.applyLeieuLeave(
 						LieuLeaveRequestDtoMapper.mapLieuLeaveRequestDtoToLieuLeaveRequest(leaveDtoRequest),
-						userService.findUserById(leaveDtoRequest.getUser()))),
+						userService.findUserById(leaveDtoRequest.getUserId()))),
 				HttpStatus.CREATED);
 
 	}
@@ -67,7 +67,7 @@ public class LieuLeaveRequestController {
 		return new ResponseEntity<>(LieuLeaveRequestMapper
 				.mapLieuLeaveRequestToLieuLeaveRequestDto(lieuleaveRequestService.updateLieuLeaveRequest(id,
 						LieuLeaveRequestDtoMapper.mapLieuLeaveRequestDtoToLieuLeaveRequest(lieuleaveDtoRequest),
-						userService.findUserById(lieuleaveDtoRequest.getUser()))),
+						userService.findUserById(lieuleaveDtoRequest.getUserId()))),
 				HttpStatus.OK);
 
 	}
@@ -76,8 +76,18 @@ public class LieuLeaveRequestController {
 	public ResponseEntity<?> getLieuLeaveRequest(@PathVariable Long id) {
 		if (lieuleaveRequestService.findLieuLeaveRequestById(id) != null) {
 			return new ResponseEntity<>(LieuLeaveRequestMapper.mapLieuLeaveRequestToLieuLeaveRequestDto(
-					lieuleaveRequestService.findLieuLeaveRequestById(id)),HttpStatus.OK);
+					lieuleaveRequestService.findLieuLeaveRequestById(id)), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
+	@GetMapping("/findbyUserId/{userId}")
+	public ResponseEntity<?> getLieuLeaveRequestFindByUserId(@PathVariable("userId") Long id) {
+		if (lieuleaveRequestService.findByUser(id) != null) {
+			return new ResponseEntity<>(LieuLeaveRequestMapper.mapLieuLeaveRequestListToLieuLeaveRequestDtoList(
+					lieuleaveRequestService.findByUser(id)), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
 	}
 }

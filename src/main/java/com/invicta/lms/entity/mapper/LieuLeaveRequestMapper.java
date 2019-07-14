@@ -10,7 +10,7 @@ public class LieuLeaveRequestMapper {
 	public static LieuLeaveDtoResponse mapLieuLeaveRequestToLieuLeaveRequestDto(LieuLeaveRequest lieuLeaveRequest) {
 		LieuLeaveDtoResponse lieuLeaveDtoResponse = new LieuLeaveDtoResponse();
 		lieuLeaveDtoResponse.setId(lieuLeaveRequest.getId());
-		lieuLeaveDtoResponse.setUserName(lieuLeaveRequest.getUser().getUserName());
+		lieuLeaveDtoResponse.setUserName(lieuLeaveRequest.getUserId().getUserName());
 		lieuLeaveDtoResponse.setStartDate(lieuLeaveRequest.getStartDate());
 		lieuLeaveDtoResponse.setEndDate(lieuLeaveRequest.getEndDate());
 		lieuLeaveDtoResponse.setWorkedHours(lieuLeaveRequest.getWorkedHours());

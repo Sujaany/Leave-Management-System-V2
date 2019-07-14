@@ -25,9 +25,9 @@ public class LieuLeaveRequest extends DateAudit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private User userId;
 	private Date startDate;
 	private Date endDate;
 	private Double workedHours;
@@ -42,12 +42,12 @@ public class LieuLeaveRequest extends DateAudit {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public User getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(User userId) {
+		this.userId = userId;
 	}
 
 	public Date getStartDate() {

@@ -14,7 +14,7 @@ public class LieuLeaveRequestDtoMapper {
 		lieuLeaveRequest.setReason(lieuLeaveDtoReuest.getReason());
 		lieuLeaveRequest.setWorkedHours(lieuLeaveDtoReuest.getWorkedHours());
 		User user = new User();
-		user.setId(lieuLeaveDtoReuest.getUser());
+		user.setId(lieuLeaveDtoReuest.getUserId());
 		return lieuLeaveRequest;	
 	}
 }
