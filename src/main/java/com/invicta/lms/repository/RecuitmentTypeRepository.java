@@ -6,6 +6,6 @@ import com.invicta.lms.entity.RecuitmentType;
 
 public interface RecuitmentTypeRepository extends JpaRepository<RecuitmentType, Long> {
 	RecuitmentType findRecuitmentTypeById(Long id);
-	Boolean existsByRecuitmentType(String recuitmentType);
+	Boolean existsByRecuitmentTypeName(String recuitmentTypeName);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.invicta.lms.entity.LeaveDaysProcessor;
 import com.invicta.lms.entity.LeaveType;
 import com.invicta.lms.entity.User;
+import com.invicta.lms.enums.LeaveProcessType;
 import com.invicta.lms.repository.LeaveDaysProcessorRepository;
 import com.invicta.lms.service.LeaveDaysProcessorService;
 
@@ -20,8 +21,10 @@ public class LeaveDaysProcessorServiceImpl implements LeaveDaysProcessorService{
 	@Override
 	public LeaveDaysProcessor addLeaveDaysProcessor(LeaveDaysProcessor leaveDaysProcessor, User user,
 			LeaveType leaveType) {
+		
 		if(leaveDaysProcessor != null) {
-			leaveDaysProcessor.setUser_id(user);
+			leaveDaysProcessor.setUser(user);
+			leaveDaysProcessor.setLeaveProcessType(LeaveProcessType.ALLOCATION);
 			leaveDaysProcessor.setLeaveType(leaveType);
 			return leaveDaysProcessorRepository.save(leaveDaysProcessor);
 		}
@@ -33,7 +36,7 @@ public class LeaveDaysProcessorServiceImpl implements LeaveDaysProcessorService{
 			LeaveType leaveType) {
 		if(leaveDaysProcessorRepository.getOne(id)!= null) {
 			leaveDaysProcessor.setId(id);
-			leaveDaysProcessor.setUser_id(user);
+			leaveDaysProcessor.setUser(user);
 			leaveDaysProcessor.setLeaveType(leaveType);
 			return leaveDaysProcessorRepository.save(leaveDaysProcessor);
 		}
@@ -60,4 +63,22 @@ public class LeaveDaysProcessorServiceImpl implements LeaveDaysProcessorService{
 	public List<LeaveDaysProcessor> viewAllLeaveDaysProcessor() {
 		return leaveDaysProcessorRepository.findAll();
 		}
+
+	@Override
+	public List<LeaveDaysProcessor> findLeaveDaysByUser(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<LeaveDaysProcessor> findLeaveDaysByUserAndLeaveType(Long userId, Long leaveId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long sumLeaveDaysByUserAndLeaveType(Long userId, Long leaveId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -17,14 +17,14 @@ public class LeaveTypeValidation {
 	Map<String,String> errors = new HashMap<>();
 	public void validationLeaveType(LeaveTypeDto leaveTypeDto) {
 		errors.clear();
-		if(leaveTypeDto.getLeaveType() ==null) {
-			errors.put("LeaveType", "Leave type cannot be null");
+		if(leaveTypeDto.getLeaveTypeName() ==null) {
+			errors.put("leaveTypeName", "Leave type cannot be null");
 		}
-		if(leaveTypeDto.getLeaveType() == "") {
-			errors.put("LeaveType", "Leave type cannot be Empty");
+		if(leaveTypeDto.getLeaveTypeName() == "") {
+			errors.put("leaveTypeName", "Leave type cannot be Empty");
 		}
-		if(leaveTypeService.existsByleaveType(leaveTypeDto.getLeaveType())) {
-			errors.put("LeaveType", "Leave type Already exist");
+		if(leaveTypeService.existsByleaveType(leaveTypeDto.getLeaveTypeName())) {
+			errors.put("leaveTypeName", "Leave type Already exist");
 		}
 	}
 	public Map<String,String> getErrors(){

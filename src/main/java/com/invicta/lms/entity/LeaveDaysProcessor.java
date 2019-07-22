@@ -2,9 +2,8 @@ package com.invicta.lms.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,17 +23,17 @@ public class LeaveDaysProcessor {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable =false)
-	private User user_id;
+	private User user;
 	
 	@ManyToOne(fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name="leave_type_id", nullable =false)
 	private LeaveType leaveType;
 	
-	@Enumerated(EnumType.STRING)
+	@Column (name="leaveProcessType")
 	private LeaveProcessType leaveProcessType;
 	
-	private Double Days;
-	private Date Date_of_process;
+	private Double days;
+	private Date dateOfProcess;
 	
 	public Long getId() {
 		return id;
@@ -42,11 +41,12 @@ public class LeaveDaysProcessor {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public User getUser_id() {
-		return user_id;
+	
+	public User getUser() {
+		return user;
 	}
-	public void setUser_id(User user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public LeaveType getLeaveType() {
 		return leaveType;
@@ -61,15 +61,16 @@ public class LeaveDaysProcessor {
 		this.leaveProcessType = leaveProcessType;
 	}
 	public Double getDays() {
-		return Days;
+		return days;
 	}
 	public void setDays(Double days) {
-		Days = days;
+		this.days = days;
 	}
-	public Date getDate_of_process() {
-		return Date_of_process;
+	public Date getDateOfProcess() {
+		return dateOfProcess;
 	}
-	public void setDate_of_process(Date date_of_process) {
-		Date_of_process = date_of_process;
-	} 
+	public void setDateOfProcess(Date dateOfProcess) {
+		this.dateOfProcess = dateOfProcess;
+	}
+		
 }

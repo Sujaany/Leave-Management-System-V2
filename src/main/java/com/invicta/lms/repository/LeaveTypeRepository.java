@@ -7,5 +7,5 @@ import com.invicta.lms.entity.LeaveType;
 public interface LeaveTypeRepository extends JpaRepository<LeaveType, Long> {
 	LeaveType findLeaveTypeById(Long id);
 	
-	 Boolean existsByleaveType(String leaveType);
+	 Boolean existsByleaveTypeName(String leaveType);
 }

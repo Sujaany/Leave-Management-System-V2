@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.invicta.lms.entity.LeaveDaysProcessor;
+import com.invicta.lms.dto.LeaveDaysProcessorDtoRequest;
+import com.invicta.lms.dto.LeaveDaysProcessorDtoResponse;
+import com.invicta.lms.dto.mapper.LeaveDaysProcessorDtoMapper;
+import com.invicta.lms.entity.mapper.LeaveDaysProcessorMapper;
 import com.invicta.lms.service.LeaveDaysProcessorService;
 import com.invicta.lms.service.LeaveTypeService;
 import com.invicta.lms.service.UserService;
@@ -32,29 +34,43 @@ public class LeaveDaysProcessorController {
 	@Autowired
 	private UserService userService;
 	
+	@PostMapping
+	public ResponseEntity<?> createLeaveDaysProcessor(@RequestBody LeaveDaysProcessorDtoRequest leaveDaysProcessorDtoRequest){
+		return new ResponseEntity<> (LeaveDaysProcessorMapper.mapLeaveDaysProcessorToLeaveDaysProcessorDto(
+				
+				leaveDaysProcessorService.addLeaveDaysProcessor(
+				
+				LeaveDaysProcessorDtoMapper.mapLeaveDaysProcessorDtoToLeaveDaysProcessor(
+						leaveDaysProcessorDtoRequest),
+				userService.findUserById(leaveDaysProcessorDtoRequest.getUser()),
+				leaveTypeService.findLeaveTypeById(leaveDaysProcessorDtoRequest.getLeaveType()))),HttpStatus.CREATED);			
+	}
 	
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateLeaveDaysProcessor(@RequestBody LeaveDaysProcessorDtoRequest leaveDaysProcessorDtoRequest,
+			@PathVariable("id") Long id) {
+		return new ResponseEntity<>(LeaveDaysProcessorMapper.mapLeaveDaysProcessorToLeaveDaysProcessorDto(leaveDaysProcessorService.updateLeaveDaysProcessor(id,
+				LeaveDaysProcessorDtoMapper.mapLeaveDaysProcessorDtoToLeaveDaysProcessor(leaveDaysProcessorDtoRequest),
+				userService.findUserById(leaveDaysProcessorDtoRequest.getUser()),
+				leaveTypeService.findLeaveTypeById(leaveDaysProcessorDtoRequest.getLeaveType()))), HttpStatus.OK);
+	}
+		
 	@GetMapping
-	public ResponseEntity<List<LeaveDaysProcessor>> get() {
-		return new ResponseEntity<>(leaveDaysProcessorService.viewAllLeaveDaysProcessor(), HttpStatus.OK);
+	public ResponseEntity<List<LeaveDaysProcessorDtoResponse>> getLeaveDaysProcessor(){
+		return new ResponseEntity<>(LeaveDaysProcessorMapper.mapLeaveDaysProcessorToLeaveDaysProcessorDtoList(leaveDaysProcessorService.viewAllLeaveDaysProcessor()),HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<?>getLeaveDaysProcessorById(@PathVariable("id") Long id){
-		return new ResponseEntity<LeaveDaysProcessor>(leaveDaysProcessorService.findLeaveDaysProcessorById(id), HttpStatus.OK);
-	}
 
-//	@PostMapping
-//	public ResponseEntity<?> createLeaveDaysProcessor(@RequestBody LeaveDaysProcessor leaveDaysProcessor) {
-//		return new ResponseEntity<>(leaveDaysProcessorService.addLeaveDaysProcessor(leaveDaysProcessor),HttpStatus.CREATED);
-//		}
-//	
-//	@PutMapping("/{id}")
-//	public ResponseEntity<?> editLeaveDaysProcessor(@RequestBody LeaveDaysProcessor leaveDaysProcessor, @PathVariable Long id) {
-//		return new ResponseEntity<LeaveDaysProcessor>(leaveDaysProcessorService.updateLeaveDaysProcessor(id, leaveDaysProcessor), HttpStatus.OK);
-//		}
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getLeaveDaysProcessorById(@PathVariable("id") Long id){
+		if(userService.findUserById(id)!=null) {
+			return new ResponseEntity<> (leaveDaysProcessorService.findLeaveDaysProcessorById(id),HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteLeaveDaysProcessor(@PathVariable Long id) {
+	public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
 		return new ResponseEntity<>(leaveDaysProcessorService.deleteLeaveDaysProcessor(id), HttpStatus.OK);
 	}
 }

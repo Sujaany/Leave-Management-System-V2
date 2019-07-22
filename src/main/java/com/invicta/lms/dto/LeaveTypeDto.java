@@ -2,17 +2,18 @@ package com.invicta.lms.dto;
 
 public class LeaveTypeDto {
 	private Long id;
-	private String leaveType;
+	private String leaveTypeName;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getLeaveType() {
-		return leaveType;
+	public String getLeaveTypeName() {
+		return leaveTypeName;
 	}
-	public void setLeaveType(String leaveType) {
-		this.leaveType = leaveType;
+	public void setLeaveTypeName(String leaveTypeName) {
+		this.leaveTypeName = leaveTypeName;
 	}
+
 }
