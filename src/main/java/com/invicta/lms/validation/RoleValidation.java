@@ -28,10 +28,12 @@ public class RoleValidation {
 			errors.put("roleName", "Role cannot be Empty");
 		}
 
-		if (roleService.existsByRole(roleDto.getRoleName())) {
+		if (roleDto.getId()==null && roleService.existsByRole(roleDto.getRoleName())) {
 			errors.put("roleName", "Role Already exist");
 		}
-
+		if (roleDto.getId()!=null && roleService.existsByRoleLockId(roleDto.getId(),roleDto.getRoleName())) {
+			errors.put("roleName", "Role Already exist");
+		}
 	}
 
 	public Map<String, String> getErrors() {

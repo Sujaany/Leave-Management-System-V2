@@ -11,5 +11,5 @@ public interface RoleService {
 	Role updateRole(Long id,Role role);
 	Role findRoleById(Long id);
 	Boolean existsByRole(String roleName);
-	
+	Boolean existsByRoleLockId(Long id,String roleName);
 }
