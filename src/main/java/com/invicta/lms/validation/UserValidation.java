@@ -18,15 +18,33 @@ public class UserValidation {
 
 	public void validationUser(UserDtoRequest userDtoRequest) {
 		errors.clear();
+		if (userDtoRequest.getId() == null) {
+			if( userService.existsByUsername(userDtoRequest.getUserName())) {
+				errors.put("userName", "User name Alreay exist!");
+			}
+			if (userDtoRequest.getPassword() == null) {
+				errors.put("password", "Password cannot be null");
+			}
+			if (userDtoRequest.getPassword() == "") {
+				errors.put("password", "Password  cannot be Empty");
+			}
+		}
+		
+		
+		
+		if (userDtoRequest.getId() != null
+				&& userService.existsByUsernameAndId(userDtoRequest.getId(), userDtoRequest.getUserName())) {
+				errors.put("userName", "User name Alreay exist!");
+		}
+		
+
 		if (userDtoRequest.getUserName() == null) {
 			errors.put("userName", "User name cannot be null");
 		}
 		if (userDtoRequest.getUserName() == "") {
 			errors.put("userName", "User name cannot be Empty");
 		}
-		if (userService.existsByUsername(userDtoRequest.getUserName())) {
-			errors.put("userName", "User name Alreay exist!");
-		}
+
 		if (userDtoRequest.getRole() == null) {
 			errors.put("role", "Rloe is Required");
 		}
@@ -36,16 +54,16 @@ public class UserValidation {
 		if (userDtoRequest.getEmail() == "") {
 			errors.put("mail", "Email is Required");
 		}
-		if (userService.existsByEmail(userDtoRequest.getEmail())) {
+	
+		if (userDtoRequest.getId() == null && userService.existsByEmail(userDtoRequest.getEmail())) {
 			errors.put("mail", "Email Alreay exist!");
 		}
+		if (userDtoRequest.getId() != null
+				&& userService.existsByEmailAndId(userDtoRequest.getId(), userDtoRequest.getEmail())) {
+				errors.put("mail", "Email Alreay exist!");
+		}
 
-		if (userDtoRequest.getPassword() == null) {
-			errors.put("password", "Password cannot be null");
-		}
-		if (userDtoRequest.getPassword() == "") {
-			errors.put("password", "Password  cannot be Empty");
-		}
+		
 	}
 
 	public Map<String, String> getErrors() {

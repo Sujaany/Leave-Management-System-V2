@@ -45,7 +45,5 @@ public class UserDtoResponse {
 	}
 	public void setRole(RoleDto role) {
 		this.role = role;
-	}
-	
-	
+	}	
 }

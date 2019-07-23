@@ -26,17 +26,18 @@ public class LeaveType implements Serializable {
 	 @NotBlank(message ="Leave type is requried")
 	 @Size(max = 40)
 	 @Column(unique = true)
-	private String leaveType;
+	private String leaveTypeName;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getLeaveType() {
-		return leaveType;
+	public String getLeaveTypeName() {
+		return leaveTypeName;
 	}
-	public void setLeaveType(String leaveType) {
-		this.leaveType = leaveType;
+	public void setLeaveTypeName(String leaveTypeName) {
+		this.leaveTypeName = leaveTypeName;
 	}
+	
 }

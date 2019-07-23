@@ -20,7 +20,7 @@ public class RecuitmentType {
 	@NotBlank
 	@Size(max = 30)
 	@Column(unique = true)
-	private String recuitmentType;
+	private String recuitmentTypeName;
 
 	public Long getId() {
 		return id;
@@ -30,12 +30,14 @@ public class RecuitmentType {
 		this.id = id;
 	}
 
-	public String getRecuitmentType() {
-		return recuitmentType;
+	public String getRecuitmentTypeName() {
+		return recuitmentTypeName;
 	}
 
-	public void setRecuitmentType(String recuitmentType) {
-		this.recuitmentType = recuitmentType;
+	public void setRecuitmentTypeName(String recuitmentTypeName) {
+		this.recuitmentTypeName = recuitmentTypeName;
 	}
+
+	
 
 }

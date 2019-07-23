@@ -11,6 +11,7 @@ public class LeaveDtoResponse {
 	private Double noOfDays;
 	private String reason;
 	private String leaveStatus;
+	private Date requestedDate;
 	
 	public Long getId() {
 		return id;
@@ -59,6 +60,12 @@ public class LeaveDtoResponse {
 	}
 	public void setLeaveStatus(String leaveStatus) {
 		this.leaveStatus = leaveStatus;
+	}
+	public Date getRequestedDate() {
+		return requestedDate;
+	}
+	public void setRequestedDate(Date requestedDate) {
+		this.requestedDate = requestedDate;
 	}
 	
 	

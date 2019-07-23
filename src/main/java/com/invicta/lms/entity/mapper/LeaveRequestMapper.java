@@ -17,7 +17,7 @@ public class LeaveRequestMapper {
 		leaveDtoResponse.setNoOfDays(leaveRequest.getNoOfDays());
 		leaveDtoResponse.setReason(leaveRequest.getReason());
 		leaveDtoResponse.setLeaveStatus(leaveRequest.getLeaveRequestStatus().name());
-		leaveDtoResponse.setLeaveType(leaveRequest.getLeaveType().getLeaveType());
+		leaveDtoResponse.setLeaveType(leaveRequest.getLeaveType().getLeaveTypeName());
 		leaveDtoResponse.setRequestedBy(leaveRequest.getRequestedBy().getUserName());
 		
 		return leaveDtoResponse;

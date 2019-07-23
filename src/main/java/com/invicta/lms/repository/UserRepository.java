@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.invicta.lms.entity.User;
@@ -19,10 +20,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	List<User> findByIdIn(List<Long> userIds);
 
-	Optional<User> findByUserName(String username);
+//	Optional<User> findByUserName(String username);
 
 	Boolean existsByUserName(String username);
-
+	
 	Boolean existsByEmail(String email);
-
+	
+	@Query("SELECT count(userName) FROM User u WHERE u.id <> ?1 AND u.userName= ?2")
+	Integer checkWithLockUserId(Long id,String username);
+	
+	@Query("SELECT count(userName) FROM User u WHERE u.id <> ?1 AND u.email= ?2")
+	Integer checkWithEmailLockUserId(Long id,String email);
 }

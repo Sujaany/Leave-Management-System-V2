@@ -13,5 +13,5 @@ public interface LeaveRequestService {
 	LeaveRequest updateLeaveRequest(Long id,LeaveRequest leaveRequest,User user,LeaveType leaveType);
 	LeaveRequest findLeaveRequestById(Long id);
 	Long deleteLeaveRequest(Long id);
-
+	
 }

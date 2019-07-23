@@ -56,4 +56,12 @@ public class RoleServiceImpl implements RoleService {
 		return roleRepository.existsByRoleName(roleName);
 	}
 
+	@Override
+	public Boolean existsByRoleLockId(Long id, String roleName) {
+		if(roleRepository.checkWithLockRoleId(id, roleName)>0) {
+			return true;
+		}
+		return false;
+	}
+
 }

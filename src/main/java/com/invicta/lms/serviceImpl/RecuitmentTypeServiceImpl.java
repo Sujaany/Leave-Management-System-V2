@@ -49,7 +49,7 @@ public class RecuitmentTypeServiceImpl implements RecuitmentTypeService {
 
 	@Override
 	public Boolean existsByRecuitmentType(String recuitmentType) {
-		return recuitmentTypeRepository.existsByRecuitmentType(recuitmentType);
+		return recuitmentTypeRepository.existsByRecuitmentTypeName(recuitmentType);
 	}
 
 }

@@ -10,7 +10,7 @@ public class RecuitmentTypeMapper {
 	public static RecruitmentTypeDto mapRecuitmentTypeToRecuitmentTypeDto(RecuitmentType recuitmentType) {
 		RecruitmentTypeDto recruitmentTypeDto = new RecruitmentTypeDto();
 		recruitmentTypeDto.setId(recuitmentType.getId());
-		recruitmentTypeDto.setRecuitmentType(recuitmentType.getRecuitmentType());
+		recruitmentTypeDto.setRecuitmentTypeName(recuitmentType.getRecuitmentTypeName());
 
 		return recruitmentTypeDto;
 	}
