@@ -18,6 +18,7 @@ import com.invicta.lms.entity.mapper.LeaveRequestMapper;
 import com.invicta.lms.service.LeaveRequestService;
 import com.invicta.lms.service.LeaveTypeService;
 import com.invicta.lms.service.UserService;
+import com.invicta.lms.validation.LeaveRequestValidation;
 
 @RestController
 @RequestMapping("leaveRequest")
@@ -29,9 +30,17 @@ public class LeaveRequestController {
 	private UserService userService;
 	@Autowired
 	private LeaveTypeService leaveTypeService;
+	@Autowired
+	private LeaveRequestValidation leaveRequestValidation;
 
 	@PostMapping
 	public ResponseEntity<?> addLeaveRequest(@RequestBody LeaveDtoRequest leaveDtoRequest) {
+		leaveRequestValidation.validationLeave(leaveDtoRequest);
+		
+		if(leaveRequestValidation.getErrors().isEmpty()) {
+			return new ResponseEntity<>(leaveRequestValidation.getErrors(), HttpStatus.BAD_REQUEST);
+		}
+		
 		return new ResponseEntity<>(LeaveRequestMapper.mapLeaveRequestToLeaveDtoResponse(leaveRequestService.addLeaveRequest(
 				LeaveRequestDtoMapper.mapLeaveDtoRequestToLeaveRequest(leaveDtoRequest),
 				userService.findUserById(leaveDtoRequest.getRequestedBy()),
