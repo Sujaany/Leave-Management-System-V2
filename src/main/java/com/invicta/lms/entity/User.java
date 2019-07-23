@@ -45,8 +45,6 @@ public class User extends DateAudit {
 	@Column(name = "user_status")
 	private UserStatus userStatus;
 
-//	@NaturalId
-	@Column(unique = true)
 	@NotBlank
 	@Size(max = 40)
 	@Email

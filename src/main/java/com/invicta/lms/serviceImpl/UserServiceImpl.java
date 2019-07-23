@@ -90,8 +90,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Boolean existsByEmail(String email) {
-
 		return userRepository.existsByEmail(email);
 	}
 
+	@Override
+	public Boolean existsByUsernameAndId(Long id, String username) {
+		if(userRepository.checkWithLockUserId(id, username)>0) {
+			return true;
+		}
+		return false ;
+	}
+
+	@Override
+	public Boolean existsByEmailAndId(Long id ,String email) {
+		if(userRepository.checkWithEmailLockUserId(id, email)>0) {
+			return true;
+		}
+		return false ;
+	}
+
+	
 }

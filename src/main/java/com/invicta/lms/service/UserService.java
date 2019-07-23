@@ -14,6 +14,9 @@ public interface UserService {
 	User changedStatus(Long id,Boolean status );
 	Boolean existsByUsername(String username);
 	Boolean existsByEmail(String email);
+	Boolean existsByUsernameAndId(Long id,String username);
+	Boolean existsByEmailAndId(Long id ,String email);
+	
 }
 
 
