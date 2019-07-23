@@ -11,4 +11,5 @@ public interface LeaveTypeService {
 	LeaveType updateLeaveType(Long id,LeaveType leaveType);
 	LeaveType findLeaveTypeById(Long id);
 	Boolean existsByleaveType(String leaveType);
+	Boolean existsByleaveTypeLockId(Long id,String leaveTypeName);
 }

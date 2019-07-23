@@ -23,7 +23,10 @@ public class LeaveTypeValidation {
 		if(leaveTypeDto.getLeaveTypeName() == "") {
 			errors.put("leaveTypeName", "Leave type cannot be Empty");
 		}
-		if(leaveTypeService.existsByleaveType(leaveTypeDto.getLeaveTypeName())) {
+		if(leaveTypeDto.getId()==null && leaveTypeService.existsByleaveType(leaveTypeDto.getLeaveTypeName())) {
+			errors.put("leaveTypeName", "Leave type Already exist");
+		}
+		if(leaveTypeDto.getId()!=null && leaveTypeService.existsByleaveTypeLockId(leaveTypeDto.getId(),leaveTypeDto.getLeaveTypeName())) {
 			errors.put("leaveTypeName", "Leave type Already exist");
 		}
 	}

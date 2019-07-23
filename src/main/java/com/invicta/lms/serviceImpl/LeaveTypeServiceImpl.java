@@ -58,4 +58,12 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		return leaveTypeRepository.existsByleaveTypeName(leaveType);
 		 
 	}
+
+	@Override
+	public Boolean existsByleaveTypeLockId(Long id, String leaveTypeName) {
+		if(leaveTypeRepository.checkWithLeaveTypeLockId(id, leaveTypeName)>0) {
+			return true;
+		}
+		return false;
+	}
 }
