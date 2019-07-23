@@ -46,7 +46,6 @@ public UserPrincipal(Long id, String username,Role role, String email, String pa
 
 
     public static UserPrincipal create(User user) {
-    	//List<GrantedAuthority> authorities = (List<GrantedAuthority>) user.getRole();
     	List<SimpleGrantedAuthority>authorities  = new ArrayList<SimpleGrantedAuthority>();
     	authorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
     	
