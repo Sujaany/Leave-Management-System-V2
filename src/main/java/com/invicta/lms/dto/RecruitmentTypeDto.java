@@ -3,7 +3,7 @@ package com.invicta.lms.dto;
 public class RecruitmentTypeDto {
 
 	private Long id;
-	private String recuitmentType;
+	private String recuitmentTypeName;
 
 	public Long getId() {
 		return id;
@@ -13,12 +13,12 @@ public class RecruitmentTypeDto {
 		this.id = id;
 	}
 
-	public String getRecuitmentType() {
-		return recuitmentType;
+	public String getRecuitmentTypeName() {
+		return recuitmentTypeName;
 	}
 
-	public void setRecuitmentType(String recuitmentType) {
-		this.recuitmentType = recuitmentType;
+	public void setRecuitmentTypeName(String recuitmentTypeName) {
+		this.recuitmentTypeName = recuitmentTypeName;
 	}
 
 }

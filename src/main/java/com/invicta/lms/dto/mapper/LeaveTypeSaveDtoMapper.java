@@ -8,7 +8,7 @@ public class LeaveTypeSaveDtoMapper {
 	public static LeaveType  mapLeaveTypesaveDtoToLeaveType(LeaveTypeDto leaveTypeDto) {
 		LeaveType leaveType = new LeaveType();
 		leaveType.setId(leaveTypeDto.getId());
-		leaveType.setLeaveType(leaveTypeDto.getLeaveType());
+		leaveType.setLeaveTypeName(leaveTypeDto.getLeaveTypeName());
 		return leaveType;
 	}
 

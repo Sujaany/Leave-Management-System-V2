@@ -10,7 +10,7 @@ public class LeaveTypeMapper {
 	public static LeaveTypeDto mapLeaveTypeToLeaveTypeDto(LeaveType leaveType) {
 		LeaveTypeDto leaveTypeDto =new LeaveTypeDto();
 		leaveTypeDto.setId(leaveType.getId());
-		leaveTypeDto.setLeaveType(leaveType.getLeaveType());
+		leaveTypeDto.setLeaveTypeName(leaveType.getLeaveTypeName());
 		return leaveTypeDto;
 		
 	}

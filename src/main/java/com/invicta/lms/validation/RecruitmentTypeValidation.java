@@ -20,15 +20,15 @@ public class RecruitmentTypeValidation {
 
 		errors.clear();
 
-		if (recruitmentTypeDto.getRecuitmentType() == null) {
+		if (recruitmentTypeDto.getRecuitmentTypeName() == null) {
 			errors.put("recuitmentType", "Recruitment type cannot be null");
 		}
 
-		if (recruitmentTypeDto.getRecuitmentType() == "") {
+		if (recruitmentTypeDto.getRecuitmentTypeName() == "") {
 			errors.put("recuitmentType", "Recruitment type cannot be Empty");
 		}
 
-		if (recuitmentTypeService.existsByRecuitmentType(recruitmentTypeDto.getRecuitmentType())) {
+		if (recuitmentTypeService.existsByRecuitmentType(recruitmentTypeDto.getRecuitmentTypeName())) {
 			errors.put("recuitmentType", "Recruitment type Already exist");
 		}
 
