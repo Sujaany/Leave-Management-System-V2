@@ -2,12 +2,14 @@ package com.invicta.lms.dto;
 
 import java.sql.Date;
 
+import com.invicta.lms.enums.LeaveProcessType;
+
 public class LeaveDaysProcessorDtoRequest {
 
 	private Long id;
 	private Long user;
 	private Long leaveType;
-//	private LeaveProcessType leaveProcessType;
+	private LeaveProcessType leaveProcessType;
 	private Double Days;
 	private Date DateOfProcess;
 	
@@ -31,12 +33,12 @@ public class LeaveDaysProcessorDtoRequest {
 	public void setLeaveType(Long leaveType) {
 		this.leaveType = leaveType;
 	}
-//	public LeaveProcessType getLeaveProcessType() {
-//		return leaveProcessType;
-//	}
-//	public void setLeaveProcessType(LeaveProcessType leaveProcessType) {
-//		this.leaveProcessType = leaveProcessType;
-//	}
+	public LeaveProcessType getLeaveProcessType() {
+		return leaveProcessType;
+	}
+	public void setLeaveProcessType(LeaveProcessType leaveProcessType) {
+		this.leaveProcessType = leaveProcessType;
+	}
 	public Double getDays() {
 		return Days;
 	}

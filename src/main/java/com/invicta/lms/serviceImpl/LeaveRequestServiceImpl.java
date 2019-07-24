@@ -9,7 +9,6 @@ import com.invicta.lms.entity.LeaveRequest;
 import com.invicta.lms.entity.LeaveType;
 import com.invicta.lms.entity.User;
 import com.invicta.lms.enums.LeaveRequestStatus;
-import com.invicta.lms.enums.UserStatus;
 import com.invicta.lms.repository.LeaveRequestRepository;
 import com.invicta.lms.service.LeaveRequestService;
 

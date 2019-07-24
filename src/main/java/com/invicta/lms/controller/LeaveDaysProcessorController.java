@@ -60,6 +60,12 @@ public class LeaveDaysProcessorController {
 		return new ResponseEntity<>(LeaveDaysProcessorMapper.mapLeaveDaysProcessorToLeaveDaysProcessorDtoList(leaveDaysProcessorService.viewAllLeaveDaysProcessor()),HttpStatus.OK);
 	}
 	
+	@GetMapping("/test")
+	public LeaveDaysProcessorDtoRequest getLeaveDaysProcessor2(){
+		return new LeaveDaysProcessorDtoRequest();
+	}
+	
+	
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getLeaveDaysProcessorById(@PathVariable("id") Long id){
@@ -88,12 +94,14 @@ public class LeaveDaysProcessorController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@GetMapping("sumLeaveDays/userId/{userId}/leaveType/{leaveTypeId}")
-	public ResponseEntity<?> sumLeaveDaysByUserAndLeaveType(@PathVariable("userId") Long userId,@PathVariable("leaveTypeId") Long leaveTypeId) {
+
+	@GetMapping("leavesummary/userId/{userId}/leaveType/{leaveTypeId}")
+	public ResponseEntity<?> getleaveSummary(
+			@PathVariable("userId") Long userId,@PathVariable("leaveTypeId") Long leaveTypeId) {
 		
-		if (leaveDaysProcessorService.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId) != null) {
+		if (leaveDaysProcessorService.leaveSummary(userId, leaveTypeId) != null) {
 			return new ResponseEntity<>(
-					leaveDaysProcessorService.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId), HttpStatus.OK);
+					leaveDaysProcessorService.leaveSummary(userId, leaveTypeId), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
