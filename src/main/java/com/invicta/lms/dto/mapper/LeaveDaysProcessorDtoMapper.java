@@ -11,7 +11,6 @@ public class LeaveDaysProcessorDtoMapper {
 //		leaveDaysProcessor.setLeaveProcessType(leaveDaysProcessorDtoRequest.getLeaveProcessType());
 		leaveDaysProcessor.setDays(leaveDaysProcessorDtoRequest.getDays());
 		leaveDaysProcessor.setDateOfProcess(leaveDaysProcessorDtoRequest.getDateOfProcess());
-		
 		return leaveDaysProcessor;
 	}
 }

@@ -1,7 +1,6 @@
 package com.invicta.lms.dto.mapper;
 
 import com.invicta.lms.dto.UserDtoRequest;
-import com.invicta.lms.entity.Role;
 import com.invicta.lms.entity.User;
 
 public class UserSaveDtoMapper {
@@ -12,8 +11,6 @@ public class UserSaveDtoMapper {
 		user.setUserName(userDtoRequest.getUserName());
 		user.setEmail(userDtoRequest.getEmail());
 		user.setPassword(userDtoRequest.getPassword());
-		Role role = new Role();
-		role.setId(userDtoRequest.getRole());
 		return user;
 	}
 }
