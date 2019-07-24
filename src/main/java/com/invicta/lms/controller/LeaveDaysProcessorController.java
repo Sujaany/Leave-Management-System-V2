@@ -34,7 +34,7 @@ public class LeaveDaysProcessorController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping
+	@PostMapping 
 	public ResponseEntity<?> createLeaveDaysProcessor(@RequestBody LeaveDaysProcessorDtoRequest leaveDaysProcessorDtoRequest){
 		return new ResponseEntity<> (LeaveDaysProcessorMapper.mapLeaveDaysProcessorToLeaveDaysProcessorDto(
 				
@@ -65,6 +65,35 @@ public class LeaveDaysProcessorController {
 	public ResponseEntity<?> getLeaveDaysProcessorById(@PathVariable("id") Long id){
 		if(userService.findUserById(id)!=null) {
 			return new ResponseEntity<> (leaveDaysProcessorService.findLeaveDaysProcessorById(id),HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/findbyUserId/{userId}")
+	public ResponseEntity<?> findLeaveDaysByUserId(@PathVariable("userId") Long id) {
+		if (leaveDaysProcessorService.findLeaveDaysByUserId(id) != null) {
+			return new ResponseEntity<>(LeaveDaysProcessorMapper.mapLeaveDaysProcessorToLeaveDaysProcessorDtoList(
+					leaveDaysProcessorService.findLeaveDaysByUserId(id)), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/findbyUserId/{userId}/leaveType/{leaveTypeId}")
+	public ResponseEntity<?> findLeaveDaysByUserIdAndleaveType(@PathVariable("userId") Long userId,@PathVariable("leaveTypeId") Long leaveTypeId) {
+		
+		if (leaveDaysProcessorService.findLeaveDaysByUserAndLeaveType(userId, leaveTypeId) != null) {
+			return new ResponseEntity<>(LeaveDaysProcessorMapper.mapLeaveDaysProcessorToLeaveDaysProcessorDtoList(
+					leaveDaysProcessorService.findLeaveDaysByUserAndLeaveType(userId, leaveTypeId)), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("sumLeaveDays/userId/{userId}/leaveType/{leaveTypeId}")
+	public ResponseEntity<?> sumLeaveDaysByUserAndLeaveType(@PathVariable("userId") Long userId,@PathVariable("leaveTypeId") Long leaveTypeId) {
+		
+		if (leaveDaysProcessorService.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId) != null) {
+			return new ResponseEntity<>(
+					leaveDaysProcessorService.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}

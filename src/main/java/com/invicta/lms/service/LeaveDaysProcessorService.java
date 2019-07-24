@@ -14,10 +14,10 @@ public interface LeaveDaysProcessorService {
 	LeaveDaysProcessor findLeaveDaysProcessorById(Long id);
 	Long deleteLeaveDaysProcessor(Long id);
 	// list all the leaves days for particular user 
-	List<LeaveDaysProcessor> findLeaveDaysByUser(Long userId);
+	List<LeaveDaysProcessor> findLeaveDaysByUserId(Long userId);
 	// list all the leaves days for particular user by leave days and leave type
-	List<LeaveDaysProcessor> findLeaveDaysByUserAndLeaveType(Long userId,Long leaveId);
+	List<LeaveDaysProcessor> findLeaveDaysByUserAndLeaveType(Long userId,Long leaveTypeId);
 	// list all the leaves days for particular user 
-	Long sumLeaveDaysByUserAndLeaveType(Long userId,Long leaveId);
+	Long sumLeaveDaysByUserAndLeaveType(Long userId,Long leaveTypeId);
 
 }

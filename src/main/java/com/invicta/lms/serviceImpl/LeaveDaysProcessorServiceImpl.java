@@ -65,20 +65,17 @@ public class LeaveDaysProcessorServiceImpl implements LeaveDaysProcessorService{
 		}
 
 	@Override
-	public List<LeaveDaysProcessor> findLeaveDaysByUser(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LeaveDaysProcessor> findLeaveDaysByUserId(Long userId) {
+		return leaveDaysProcessorRepository.findLeaveDaysByUserId(userId);
 	}
 
 	@Override
-	public List<LeaveDaysProcessor> findLeaveDaysByUserAndLeaveType(Long userId, Long leaveId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LeaveDaysProcessor> findLeaveDaysByUserAndLeaveType(Long userId, Long leaveTypeId) {
+		return leaveDaysProcessorRepository.findLeaveDaysByUserAndLeaveType(userId, leaveTypeId);
 	}
 
 	@Override
-	public Long sumLeaveDaysByUserAndLeaveType(Long userId, Long leaveId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long sumLeaveDaysByUserAndLeaveType(Long userId, Long leaveTypeId) {
+		return leaveDaysProcessorRepository.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId);
 	}
 }
