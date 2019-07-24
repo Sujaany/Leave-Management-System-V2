@@ -28,7 +28,6 @@ import com.invicta.lms.security.CustomUserDetailsService;
 import com.invicta.lms.security.JwtTokenProvider;
 import com.invicta.lms.service.RoleService;
 import com.invicta.lms.service.UserService;
-import com.invicta.lms.validation.LoginValidation;
 import com.invicta.lms.validation.UserValidation;
 
 @RestController
@@ -54,46 +53,31 @@ public class AuthController {
 
 	@Autowired
 	UserValidation userValidation;
-	@Autowired
-	LoginValidation loginValidation;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDtoRequest loginDtoRequest) {
-		loginValidation.validationLogin(loginDtoRequest);
-		if (!loginValidation.getErrors().isEmpty()) {
-			return new ResponseEntity<>(loginValidation.getErrors(), HttpStatus.BAD_REQUEST);
-		}
-
 		Map<String, String> authErrors = new HashMap<>();
 		try {
-		UserDetails userDetails=customUserDetailsService.loadUserByUsername(loginDtoRequest.getUsernameOrEmail());
-//		String str1=userDetails.getPassword();
-//		String str2=passwordEncoder.encode(loginDtoRequest.getPassword());
-//		System.out.println(str1.matches(str2));
-//		//boolean i=str1.contentEquals(str2);
-//		boolean ii=str1.matches(str2);
-//		System.out.println(ii);
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-				userDetails, loginDtoRequest.getPassword(),userDetails.getAuthorities());
+			UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginDtoRequest.getUsernameOrEmail());
+			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+					userDetails, loginDtoRequest.getPassword(), userDetails.getAuthorities());
 
-		
-		boolean result = authenticationManager.authenticate(usernamePasswordAuthenticationToken).isAuthenticated();
-		if (result) {
-			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+			boolean result = authenticationManager.authenticate(usernamePasswordAuthenticationToken).isAuthenticated();
+			if (result) {
+				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-			String jwt = tokenProvider.generateToken(usernamePasswordAuthenticationToken);
-			return ResponseEntity.ok(new JwtAuthenticationDtoResponse(jwt));
-		}else {
-			authErrors.put("Auth", "Invalid password");
+				String jwt = tokenProvider.generateToken(usernamePasswordAuthenticationToken);
+				return ResponseEntity.ok(new JwtAuthenticationDtoResponse(jwt));
+			} else {
+				authErrors.put("message", "Invalid password");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(authErrors);
+			}
+		} catch (UsernameNotFoundException ex) {
+
+			authErrors.put("message", "Invalid email or username");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(authErrors);
 		}
-		}catch(UsernameNotFoundException ex) {
-			
-			authErrors.put("Auth", "Invalid email or username");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(authErrors);
-		}
-		
-		
+
 	}
 
 	@PostMapping("/signup")
