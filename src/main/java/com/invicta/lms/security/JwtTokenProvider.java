@@ -36,6 +36,7 @@ public class JwtTokenProvider {
 				.claim("id",Long.toString(userPrincipal.getId()))
 				.claim("email",userPrincipal.getEmail())
 				.claim("role", userPrincipal.getRole().getRoleName())
+				.claim("userName",userPrincipal.getUsername())
 				.compact();
 	}
 	  public Long getUserIdFromJWT(String token) {
