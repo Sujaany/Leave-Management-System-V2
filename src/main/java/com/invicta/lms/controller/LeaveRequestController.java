@@ -37,10 +37,6 @@ public class LeaveRequestController {
 	public ResponseEntity<?> addLeaveRequest(@RequestBody LeaveDtoRequest leaveDtoRequest) {
 		leaveRequestValidation.validationLeave(leaveDtoRequest);
 		
-		if(leaveRequestValidation.getErrors().isEmpty()) {
-			return new ResponseEntity<>(leaveRequestValidation.getErrors(), HttpStatus.BAD_REQUEST);
-		}
-		
 		return new ResponseEntity<>(LeaveRequestMapper.mapLeaveRequestToLeaveDtoResponse(leaveRequestService.addLeaveRequest(
 				LeaveRequestDtoMapper.mapLeaveDtoRequestToLeaveRequest(leaveDtoRequest),
 				userService.findUserById(leaveDtoRequest.getRequestedBy()),

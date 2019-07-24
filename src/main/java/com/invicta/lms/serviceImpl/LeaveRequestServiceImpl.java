@@ -21,7 +21,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	
 	@Override
 	public LeaveRequest addLeaveRequest(LeaveRequest leaveRequest,User user,LeaveType leaveType) {
-		if(leaveRequest != null && user.getUserStatus()==UserStatus.ACTIVE_USER) {
+		if(leaveRequest != null) {
 			leaveRequest.setLeaveRequestStatus(LeaveRequestStatus.PENDING);
 			leaveRequest.setRequestedBy(user);
 			leaveRequest.setLeaveType(leaveType);
