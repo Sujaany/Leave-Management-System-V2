@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.invicta.lms.entity.LeaveDaysProcessor;
+import com.invicta.lms.enums.LeaveProcessType;
 
 public interface LeaveDaysProcessorRepository extends JpaRepository<LeaveDaysProcessor, Long> {
 
@@ -17,7 +18,10 @@ public interface LeaveDaysProcessorRepository extends JpaRepository<LeaveDaysPro
 	List<LeaveDaysProcessor> findLeaveDaysByUserAndLeaveType(@Param("userid") Long userid,@Param("leaveTypeid") Long leaveTypeid);
 	
 	@Query("SELECT  sum(ldp.days) FROM LeaveDaysProcessor ldp INNER JOIN ldp.user u INNER JOIN ldp.leaveType lt WHERE u.id=:userid and lt.id=:leaveTypeid ")
-	Long sumLeaveDaysByUserAndLeaveType(@Param("userid") Long userid,@Param("leaveTypeid") Long leaveTypeid);
+	Double sumLeaveDaysByUserAndLeaveType(@Param("userid") Long userid,@Param("leaveTypeid") Long leaveTypeid);
+		
+	@Query("SELECT  sum(ldp.days) FROM LeaveDaysProcessor ldp INNER JOIN ldp.user u INNER JOIN ldp.leaveType lt WHERE u.id=:userid and lt.id=:leaveTypeid and ldp.leaveProcessType=:leaveProcessTypeid ")
+	Double sumLeaveProcessTypesByUserandLeaveType(@Param("userid") Long userid,@Param("leaveTypeid") Long leaveTypeid, @Param("leaveProcessTypeid") LeaveProcessType leaveProcessTypeid);
 		
 }
 

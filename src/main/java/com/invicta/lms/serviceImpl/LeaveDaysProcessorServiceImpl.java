@@ -5,18 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.invicta.lms.dto.LeaveSummary;
 import com.invicta.lms.entity.LeaveDaysProcessor;
 import com.invicta.lms.entity.LeaveType;
 import com.invicta.lms.entity.User;
 import com.invicta.lms.enums.LeaveProcessType;
 import com.invicta.lms.repository.LeaveDaysProcessorRepository;
 import com.invicta.lms.service.LeaveDaysProcessorService;
+import com.invicta.lms.service.LeaveTypeService;
 
 @Service
 public class LeaveDaysProcessorServiceImpl implements LeaveDaysProcessorService{
 	
 	@Autowired
 	LeaveDaysProcessorRepository leaveDaysProcessorRepository;
+	
+	@Autowired
+	LeaveTypeService leaveTypeService;
 
 	@Override
 	public LeaveDaysProcessor addLeaveDaysProcessor(LeaveDaysProcessor leaveDaysProcessor, User user,
@@ -24,7 +29,6 @@ public class LeaveDaysProcessorServiceImpl implements LeaveDaysProcessorService{
 		
 		if(leaveDaysProcessor != null) {
 			leaveDaysProcessor.setUser(user);
-			leaveDaysProcessor.setLeaveProcessType(LeaveProcessType.ALLOCATION);
 			leaveDaysProcessor.setLeaveType(leaveType);
 			return leaveDaysProcessorRepository.save(leaveDaysProcessor);
 		}
@@ -75,7 +79,15 @@ public class LeaveDaysProcessorServiceImpl implements LeaveDaysProcessorService{
 	}
 
 	@Override
-	public Long sumLeaveDaysByUserAndLeaveType(Long userId, Long leaveTypeId) {
-		return leaveDaysProcessorRepository.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId);
+	public LeaveSummary leaveSummary(Long userId, Long leaveTypeId) {
+		LeaveSummary leaveSummary=new LeaveSummary();
+		leaveSummary.setLeaveType(leaveTypeService.findLeaveTypeById(leaveTypeId).getLeaveTypeName());
+		
+		leaveSummary.setAllocation(leaveDaysProcessorRepository.sumLeaveProcessTypesByUserandLeaveType(userId, leaveTypeId, LeaveProcessType.ALLOCATION));
+		leaveSummary.setUtilized(leaveDaysProcessorRepository.sumLeaveProcessTypesByUserandLeaveType(userId, leaveTypeId, LeaveProcessType.UTILIZED));
+		leaveSummary.setRemaining(leaveDaysProcessorRepository.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId));
+		return leaveSummary;
 	}
+
 }
+
