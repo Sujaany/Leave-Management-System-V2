@@ -35,13 +35,17 @@ public class UserController {
 	private RoleService roleService;
 	@Autowired
 	private UserValidation userValidation;
-
-	@PostMapping
-	public ResponseEntity<?> craeteUser(@RequestBody UserDtoRequest userDtoRequest) {
+	
+	@PostMapping("/validate")
+	public ResponseEntity<?> validateUser(@RequestBody UserDtoRequest userDtoRequest) {
 		userValidation.validationUser(userDtoRequest);
 		if(!userValidation.getErrors().isEmpty()) {
 			return new ResponseEntity<>(userValidation.getErrors(), HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<>(userValidation.getErrors(), HttpStatus.OK);
+	}
+	@PostMapping
+	public ResponseEntity<?> craeteUser(@RequestBody UserDtoRequest userDtoRequest) {
 		return new ResponseEntity<>(UserMapper.mapUserToUserDto( 
 				userService.addUser(
 				UserSaveDtoMapper.mapUserSaveDtoToUser(userDtoRequest),

@@ -4,14 +4,17 @@ import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import com.invicta.lms.entity.LeaveRequest;
+
 @SpringBootApplication
 @EntityScan(basePackageClasses = { LeaveManagementSystemV2.class, Jsr310JpaConverters.class })
-public class LeaveManagementSystemV2 {
+public class LeaveManagementSystemV2 implements CommandLineRunner{
 	@PostConstruct
 	public void init() {
 		// Setting Spring Boot SetTimeZone
@@ -20,6 +23,12 @@ public class LeaveManagementSystemV2 {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LeaveManagementSystemV2.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		
 	}
 
 }
