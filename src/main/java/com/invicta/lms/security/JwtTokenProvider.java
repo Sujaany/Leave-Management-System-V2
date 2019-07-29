@@ -4,14 +4,19 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+
+import com.invicta.lms.service.PermissionService;
 
 import io.jsonwebtoken.*;
 
 @Component
 public class JwtTokenProvider {
+	@Autowired
+	PermissionService permissionService;
 	private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
 	@Value("${app.jwtSecret}")
@@ -35,8 +40,9 @@ public class JwtTokenProvider {
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 				.claim("id",Long.toString(userPrincipal.getId()))
 				.claim("email",userPrincipal.getEmail())
-				.claim("role", userPrincipal.getRole().getRoleName())
+				.claim("role", userPrincipal.getRole().getRoleName().toUpperCase())
 				.claim("userName",userPrincipal.getUsername())
+				.claim("menu",permissionService.getMenuByRole(userPrincipal.getRole().getRoleName().toUpperCase()))
 				.compact();
 	}
 	  public Long getUserIdFromJWT(String token) {

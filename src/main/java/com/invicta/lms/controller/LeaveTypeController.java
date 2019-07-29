@@ -26,14 +26,29 @@ import com.invicta.lms.entity.mapper.LeaveTypeMapper;
 import com.invicta.lms.service.LeaveTypeService;
 import com.invicta.lms.validation.LeaveTypeValidation;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("/leaveType")
+@Api(value="leave MAnagement System")
 public class LeaveTypeController {
 
 	@Autowired
 	LeaveTypeService leaveTypeService;
 	@Autowired
 	LeaveTypeValidation leaveTypeValidation;
+	
+	 @ApiOperation(value = "View a list of Leavetypes",response = Iterable.class)
+	    @ApiResponses(value = {
+	            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+	            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+	            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	    }
+	    )
 
 	@GetMapping
 	public ResponseEntity<List<LeaveTypeDto>> getLeaveType() {
@@ -42,6 +57,7 @@ public class LeaveTypeController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation(value = "Get leaveType find By id")
 	public ResponseEntity<?> getLeaveTypeById(@PathVariable("id") Long id) {
 		if (leaveTypeService.findLeaveTypeById(id) != null) {
 			return new ResponseEntity<>(
@@ -51,6 +67,7 @@ public class LeaveTypeController {
 	}
 
 	@PostMapping
+	@ApiOperation(value = "Add leaveType")
 	public ResponseEntity<?> addLeaveType(@Valid @RequestBody LeaveTypeDto leaveTypeDto) {
 		leaveTypeValidation.validationLeaveType(leaveTypeDto);
 		if (!leaveTypeValidation.getErrors().isEmpty()) {
@@ -64,6 +81,7 @@ public class LeaveTypeController {
 	}
 
 	@PutMapping("/{id}")
+	 @ApiOperation(value = "Update a leaveType")
 	public ResponseEntity<?> updateLeaveType(@RequestBody LeaveTypeDto leaveTypeDto, @PathVariable Long id) {
 		leaveTypeValidation.validationLeaveType(leaveTypeDto);
 		if (!leaveTypeValidation.getErrors().isEmpty()) {
@@ -74,11 +92,13 @@ public class LeaveTypeController {
 	}
 
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Delete a leaveType")
 	public ResponseEntity<?> deleteLeaveType(@PathVariable Long id) {
 		return new ResponseEntity<>(leaveTypeService.deleteLeaveType(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/checkAvailability")
+	@ApiOperation(value = "Check leaveType Availability ")
 	public ResponseEntity<?> leaveTypenameAvailability(@RequestParam(value = "leaveType") String leaveType) {
 		Map<String, String> errors = new HashMap<>();
 
