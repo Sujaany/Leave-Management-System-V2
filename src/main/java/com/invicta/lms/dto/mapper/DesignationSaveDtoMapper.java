@@ -8,7 +8,6 @@ public static Designation mapDesignationSaveDtoToDesignation(DesignationDto desi
 	Designation designation = new Designation();
 	designation.setId(designationDto.getId());
 	designation.setDesignation(designationDto.getDesignation());
-	
 	return designation;
 }
 }

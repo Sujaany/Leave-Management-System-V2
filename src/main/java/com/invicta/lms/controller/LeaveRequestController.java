@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.invicta.lms.dto.LeaveDtoRequest;
+import com.invicta.lms.dto.LeaveProcessDtoRequest;
 import com.invicta.lms.dto.mapper.LeaveRequestDtoMapper;
+import com.invicta.lms.dto.mapper.LeaveRequestProcessDtoMapper;
 import com.invicta.lms.entity.mapper.LeaveRequestMapper;
 import com.invicta.lms.service.LeaveRequestService;
 import com.invicta.lms.service.LeaveTypeService;
@@ -36,30 +38,41 @@ public class LeaveRequestController {
 	@PostMapping
 	public ResponseEntity<?> addLeaveRequest(@RequestBody LeaveDtoRequest leaveDtoRequest) {
 		leaveRequestValidation.validationLeave(leaveDtoRequest);
-		
-		return new ResponseEntity<>(LeaveRequestMapper.mapLeaveRequestToLeaveDtoResponse(leaveRequestService.addLeaveRequest(
+		return new ResponseEntity<>(leaveRequestService.createInitialLeaveRequestProcess(
 				LeaveRequestDtoMapper.mapLeaveDtoRequestToLeaveRequest(leaveDtoRequest),
 				userService.findUserById(leaveDtoRequest.getRequestedBy()),
-				leaveTypeService.findLeaveTypeById(leaveDtoRequest.getLeaveType()))), HttpStatus.CREATED);
+				leaveTypeService.findLeaveTypeById(leaveDtoRequest.getLeaveType())), HttpStatus.CREATED);
 	}
 
 	@GetMapping
 	public ResponseEntity<?> getLeaveRequest() {
-		return new ResponseEntity<>(LeaveRequestMapper.mapLeaveRequestListToLeaveDtoResponseList(leaveRequestService.viewAllLeaveRequest()), HttpStatus.OK);
+		return new ResponseEntity<>(
+				LeaveRequestMapper.mapLeaveRequestListToLeaveDtoResponseList(leaveRequestService.viewAllLeaveRequest()),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getLeaveRequestById(@PathVariable("id") Long id) {
-		return new ResponseEntity<>(LeaveRequestMapper.mapLeaveRequestToLeaveDtoResponse(leaveRequestService.findLeaveRequestById(id)), HttpStatus.OK);
+		return new ResponseEntity<>(
+				LeaveRequestMapper.mapLeaveRequestToLeaveDtoResponse(leaveRequestService.findLeaveRequestById(id)),
+				HttpStatus.OK);
+	}
+
+	@GetMapping("/user/{id}")
+	public ResponseEntity<?> getLeaveRequestByUser(@PathVariable("id") Long id) {
+		return new ResponseEntity<>(LeaveRequestMapper.mapLeaveRequestListToLeaveDtoResponseList(
+				leaveRequestService.viewLeaveRequestByUser(id)), HttpStatus.OK);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateLeaveRequest(@RequestBody LeaveDtoRequest leaveDtoRequest,
 			@PathVariable("id") Long id) {
-		return new ResponseEntity<>(LeaveRequestMapper.mapLeaveRequestToLeaveDtoResponse(leaveRequestService.updateLeaveRequest(id,
-				LeaveRequestDtoMapper.mapLeaveDtoRequestToLeaveRequest(leaveDtoRequest),
-				userService.findUserById(leaveDtoRequest.getRequestedBy()),
-				leaveTypeService.findLeaveTypeById(leaveDtoRequest.getLeaveType()))), HttpStatus.OK);
+		return new ResponseEntity<>(
+				LeaveRequestMapper.mapLeaveRequestToLeaveDtoResponse(leaveRequestService.updateLeaveRequest(id,
+						LeaveRequestDtoMapper.mapLeaveDtoRequestToLeaveRequest(leaveDtoRequest),
+						userService.findUserById(leaveDtoRequest.getRequestedBy()),
+						leaveTypeService.findLeaveTypeById(leaveDtoRequest.getLeaveType()))),
+				HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

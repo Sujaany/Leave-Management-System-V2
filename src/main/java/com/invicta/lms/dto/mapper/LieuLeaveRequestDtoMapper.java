@@ -2,7 +2,6 @@ package com.invicta.lms.dto.mapper;
 
 import com.invicta.lms.dto.LieuLeaveDtoRequest;
 import com.invicta.lms.entity.LieuLeaveRequest;
-import com.invicta.lms.entity.User;
 
 public class LieuLeaveRequestDtoMapper {
 
@@ -13,8 +12,6 @@ public class LieuLeaveRequestDtoMapper {
 		lieuLeaveRequest.setEndDate(lieuLeaveDtoReuest.getEndDate());
 		lieuLeaveRequest.setReason(lieuLeaveDtoReuest.getReason());
 		lieuLeaveRequest.setWorkedHours(lieuLeaveDtoReuest.getWorkedHours());
-		User user = new User();
-		user.setId(lieuLeaveDtoReuest.getUserId());
 		return lieuLeaveRequest;	
 	}
 }

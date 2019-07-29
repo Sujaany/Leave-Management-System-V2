@@ -8,10 +8,9 @@ public class LeaveDaysProcessorDtoMapper {
 	public static LeaveDaysProcessor mapLeaveDaysProcessorDtoToLeaveDaysProcessor(LeaveDaysProcessorDtoRequest leaveDaysProcessorDtoRequest) {
 		LeaveDaysProcessor leaveDaysProcessor = new LeaveDaysProcessor();
 		leaveDaysProcessor.setId(leaveDaysProcessorDtoRequest.getId());
-//		leaveDaysProcessor.setLeaveProcessType(leaveDaysProcessorDtoRequest.getLeaveProcessType());
+		leaveDaysProcessor.setLeaveProcessType(leaveDaysProcessorDtoRequest.getLeaveProcessType());
 		leaveDaysProcessor.setDays(leaveDaysProcessorDtoRequest.getDays());
 		leaveDaysProcessor.setDateOfProcess(leaveDaysProcessorDtoRequest.getDateOfProcess());
-		
 		return leaveDaysProcessor;
 	}
 }
