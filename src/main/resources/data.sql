@@ -1,4 +1,3 @@
-
 INSERT INTO `leave_system`.`role` (`id`, `role_name`) VALUES ('1', 'ADMIN');
 INSERT INTO `leave_system`.`role` (`id`, `role_name`) VALUES ('2', 'EMPLOYEE');
 INSERT INTO `leave_system`.`role` (`id`, `role_name`) VALUES ('3', 'HR');

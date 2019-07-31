@@ -5,13 +5,13 @@ import java.util.Date;
 
 public class LieuLeaveDtoResponse {
 	private Long id;
-	private String userName;
+	private UserInfoDtoResponse userInfo;
 	private Date startDate;
 	private Date endDate;
 	private Double workedHours;
 	private String reason;
-	private Instant createdAt;
-	private Instant updatedAt;
+	private Instant appliedOn;
+	
 
 	public Long getId() {
 		return id;
@@ -21,12 +21,12 @@ public class LieuLeaveDtoResponse {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public UserInfoDtoResponse getUserInfo() {
+		return userInfo;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserInfo(UserInfoDtoResponse userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	public Date getStartDate() {
@@ -61,20 +61,14 @@ public class LieuLeaveDtoResponse {
 		this.reason = reason;
 	}
 
-	public Instant getCreatedAt() {
-		return createdAt;
+	public Instant getAppliedOn() {
+		return appliedOn;
 	}
 
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
+	public void setAppliedOn(Instant appliedOn) {
+		this.appliedOn = appliedOn;
 	}
 
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Instant updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+	
 	
 }

@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.invicta.lms.dto.LeaveDtoRequest;
+import com.invicta.lms.dto.LeaveDtoResponse;
+import com.invicta.lms.dto.LeaveProcessDtoRequest;
+import com.invicta.lms.dto.mapper.LeaveRequestMapper;
 import com.invicta.lms.entity.LeaveRequest;
-import com.invicta.lms.entity.LeaveRequestProcess;
-import com.invicta.lms.entity.LeaveType;
-import com.invicta.lms.entity.User;
 import com.invicta.lms.enums.LeaveRequestAction;
 import com.invicta.lms.enums.LeaveRequestStatus;
 import com.invicta.lms.repository.LeaveRequestRepository;
@@ -21,24 +22,30 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	@Autowired
 	LeaveRequestRepository leaveRequestRepository;
 	@Autowired
+	LeaveRequestMapper leaveRequestMapper;
+	
+	@Autowired
 	UserRepository userRepository;
 	@Autowired
 	LeaveRequestProcessService leaveRequestProcessService;
 	
-	@Override
-	public LeaveRequest addLeaveRequest(LeaveRequest leaveRequest,User user,LeaveType leaveType) {
+	
+	private  LeaveRequest addLeaveRequest(LeaveDtoRequest leaveDtoRequest,Long requestUserId) {
+		LeaveRequest leaveRequest = new LeaveRequest();
+		leaveRequest =leaveRequestMapper.maptDtoToEnity(leaveDtoRequest, leaveRequest);
+	
 		if(leaveRequest != null) {
 			leaveRequest.setLeaveRequestStatus(LeaveRequestStatus.PENDING);
-			leaveRequest.setRequestedBy(user);
-			leaveRequest.setLeaveType(leaveType);
+			leaveRequest.setRequestedUser(userRepository.findUserById(requestUserId));
 			return leaveRequestRepository.save(leaveRequest);
+			
 		}
 		return null;
 	}
 	
 	@Override
-	public List<LeaveRequest> viewAllLeaveRequest() {
-		return leaveRequestRepository.findAll();
+	public List<LeaveDtoResponse> findAllLeaveRequest() {
+		return leaveRequestMapper.mapEntityListToDtoList(leaveRequestRepository.findAll());
 	}
 
 	@Override
@@ -50,46 +57,28 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 			return null;
 		}
 
+
 	@Override
-	public LeaveRequest updateLeaveRequest(Long id, LeaveRequest leaveRequest,User user,LeaveType leaveType) {
+	public LeaveDtoResponse findLeaveRequestById(Long id) {
 		if(leaveRequestRepository.getOne(id)!= null) {
-			leaveRequest.setId(id);
-			leaveRequest.setLeaveRequestStatus(LeaveRequestStatus.PENDING);
-			leaveRequest.setRequestedBy(user);
-			leaveRequest.setLeaveType(leaveType);
-			return leaveRequestRepository.save(leaveRequest);
+			return leaveRequestMapper.mapEntityToDto(leaveRequestRepository.findLeaveRequestById(id));
 		}
 		return null;
 	}
 
 	@Override
-	public LeaveRequest findLeaveRequestById(Long id) {
-		if(leaveRequestRepository.getOne(id)!= null) {
-			return leaveRequestRepository.findLeaveRequestById(id);
+	public List<LeaveDtoResponse> findLeaveRequestByUserId(Long userId) {
+		if(userId!=null) {
+			return leaveRequestMapper.mapEntityListToDtoList(leaveRequestRepository.findByrequestedUser(userRepository.findUserById(userId)));
 		}
 		return null;
 	}
 
 	@Override
-	public List<LeaveRequest> viewLeaveRequestByUser(Long id) {
-		if(id!=null) {
-			return leaveRequestRepository.findByRequestedBy(userRepository.findUserById(id));
-		}
-		return null;
-	}
-
-	@Override
-	public Boolean createInitialLeaveRequestProcess(LeaveRequest leaveRequest,User user,LeaveType leaveType) {
-		LeaveRequest newLeaveRequest = new LeaveRequest();
-		newLeaveRequest=addLeaveRequest(leaveRequest,user,leaveType);
-		
-		if(newLeaveRequest != null) {
-			LeaveRequestProcess leaveRequestProcess = new LeaveRequestProcess();
-			leaveRequestProcess.setLeaveRequestTrackType(LeaveRequestAction.APPLIED);
-			leaveRequestProcess.setReason(newLeaveRequest.getReason());
-			leaveRequestProcessService.createLeaveRequestProcess(leaveRequestProcess, newLeaveRequest,newLeaveRequest.getRequestedBy());
-			return true;
-		}
+	public Boolean createInitialLeaveRequestProcess(LeaveDtoRequest leaveDtoRequest,Long requestUserId) {
+		LeaveRequest leaveRequest=this.addLeaveRequest(leaveDtoRequest, requestUserId);
+		LeaveProcessDtoRequest leaveProcessDtoRequest=new LeaveProcessDtoRequest(LeaveRequestAction.APPLIED,"Leave Request applied");
+		leaveRequestProcessService.processLeaveRequest(leaveRequest.getId(),requestUserId,leaveProcessDtoRequest);
 		
 		return false;
 	}

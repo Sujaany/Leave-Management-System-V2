@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class LeaveDtoResponse {
 	private Long id;
-	private String requestedBy;
+	private UserInfoDtoResponse requesteduser;
 	private String leaveType;
 	private Date startDate;
 	private Date endDate;
@@ -19,11 +19,12 @@ public class LeaveDtoResponse {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getRequestedBy() {
-		return requestedBy;
+	
+	public UserInfoDtoResponse getRequesteduser() {
+		return requesteduser;
 	}
-	public void setRequestedBy(String requestedBy) {
-		this.requestedBy = requestedBy;
+	public void setRequesteduser(UserInfoDtoResponse requesteduser) {
+		this.requesteduser = requesteduser;
 	}
 	public String getLeaveType() {
 		return leaveType;

@@ -37,7 +37,7 @@ public class LeaveRequestProcess extends DateAudit {
 	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name = "process_by")
-	private User processedBy;
+	private User processUser;
 	
 	private String reason;
 	
@@ -47,10 +47,11 @@ public class LeaveRequestProcess extends DateAudit {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public LeaveRequestAction getLeaveRequestTrackType() {
+
+	public LeaveRequestAction getLeaveRequestAction() {
 		return leaveRequestAction;
 	}
-	public void setLeaveRequestTrackType(LeaveRequestAction leaveRequestAction) {
+	public void setLeaveRequestAction(LeaveRequestAction leaveRequestAction) {
 		this.leaveRequestAction = leaveRequestAction;
 	}
 	public LeaveRequest getLeaveRequest() {
@@ -59,11 +60,11 @@ public class LeaveRequestProcess extends DateAudit {
 	public void setLeaveRequest(LeaveRequest leaveRequest) {
 		this.leaveRequest = leaveRequest;
 	}
-	public User getProcessedBy() {
-		return processedBy;
+	public User getProcessUser() {
+		return processUser;
 	}
-	public void setProcessedBy(User processedBy) {
-		this.processedBy = processedBy;
+	public void setProcessUser(User processUser) {
+		this.processUser = processUser;
 	}
 	public String getReason() {
 		return reason;

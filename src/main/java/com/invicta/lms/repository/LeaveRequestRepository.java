@@ -9,5 +9,5 @@ import com.invicta.lms.entity.User;
 
 public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
 	LeaveRequest findLeaveRequestById(Long id);
-	List<LeaveRequest> findByRequestedBy(User user);
+	List<LeaveRequest> findByrequestedUser(User requestedUser);
 }

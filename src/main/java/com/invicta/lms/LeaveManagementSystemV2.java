@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import com.invicta.lms.converter.dto.SubMenuDto;
 import com.invicta.lms.entity.Permission;
+import com.invicta.lms.repository.LeaveManagerRepository;
 import com.invicta.lms.repository.PermissionRepository;
 
 @Component
@@ -30,6 +31,9 @@ import com.invicta.lms.repository.PermissionRepository;
 public class LeaveManagementSystemV2 implements CommandLineRunner {
 	@Autowired
 	public PermissionRepository permissionRepository;
+	
+	@Autowired
+	LeaveManagerRepository leaveManagerRepository;
 
 	@PostConstruct
 	public void init() {
@@ -65,6 +69,7 @@ public class LeaveManagementSystemV2 implements CommandLineRunner {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
 
 	}
 

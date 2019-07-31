@@ -30,7 +30,7 @@ public class LeaveRequest extends DateAudit {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable =false)
-	private User requestedBy;
+	private User requestedUser;
 	
 	@ManyToOne(fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name="leave_type_id", nullable =false)
@@ -52,11 +52,12 @@ public class LeaveRequest extends DateAudit {
 		this.id = id;
 	}
 	
-	public User getRequestedBy() {
-		return requestedBy;
+	
+	public User getRequestedUser() {
+		return requestedUser;
 	}
-	public void setRequestedBy(User requestedBy) {
-		this.requestedBy = requestedBy;
+	public void setRequestedUser(User requestedUser) {
+		this.requestedUser = requestedUser;
 	}
 	public LeaveType getLeaveType() {
 		return leaveType;

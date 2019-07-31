@@ -4,52 +4,43 @@ import java.sql.Date;
 
 import com.invicta.lms.enums.LeaveProcessType;
 
-public class LeaveDaysProcessorDtoRequest {
+public class LeaveManagerDtoRequest {
 
-	private Long id;
-	private Long user;
-	private Long leaveType;
+	private Long leaveTypeId; 
 	private LeaveProcessType leaveProcessType;
 	private Double Days;
 	private Date DateOfProcess;
-	
-	public Long getId() {
-		return id;
+
+	public Long getLeaveTypeId() {
+		return leaveTypeId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setLeaveTypeId(Long leaveTypeId) {
+		this.leaveTypeId = leaveTypeId;
 	}
-	
-	
-	public Long getUser() {
-		return user;
-	}
-	public void setUser(Long user) {
-		this.user = user;
-	}
-	public Long getLeaveType() {
-		return leaveType;
-	}
-	public void setLeaveType(Long leaveType) {
-		this.leaveType = leaveType;
-	}
+
 	public LeaveProcessType getLeaveProcessType() {
 		return leaveProcessType;
 	}
+
 	public void setLeaveProcessType(LeaveProcessType leaveProcessType) {
 		this.leaveProcessType = leaveProcessType;
 	}
+
 	public Double getDays() {
 		return Days;
 	}
+
 	public void setDays(Double days) {
 		Days = days;
 	}
+
 	public Date getDateOfProcess() {
 		return DateOfProcess;
 	}
+
 	public void setDateOfProcess(Date dateOfProcess) {
 		DateOfProcess = dateOfProcess;
 	}
-		
+
 }

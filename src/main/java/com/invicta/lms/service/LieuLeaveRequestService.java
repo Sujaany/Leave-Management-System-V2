@@ -2,22 +2,21 @@ package com.invicta.lms.service;
 
 import java.util.List;
 
-import com.invicta.lms.entity.LieuLeaveRequest;
-import com.invicta.lms.entity.User;
+import com.invicta.lms.dto.LieuLeaveDtoRequest;
+import com.invicta.lms.dto.LieuLeaveDtoResponse;
+
 
 public interface LieuLeaveRequestService {
 
-	LieuLeaveRequest applyLeieuLeave(LieuLeaveRequest lieuLeaveRequest, User User);
+	LieuLeaveDtoResponse applyLieuLeave(LieuLeaveDtoRequest lieuLeaveDtoRequest, Long userId);
 
-	List<LieuLeaveRequest> viewAllLieuLeaveRequest();
+	List<LieuLeaveDtoResponse> viewAllLieuLeaveRequest();
 
 	Long deleteLieuLeaveRequest(Long id);
 
-	LieuLeaveRequest updateLieuLeaveRequest(Long id, LieuLeaveRequest lieuLeaveRequest,User user);
-
-	LieuLeaveRequest findLieuLeaveRequestById(Long id);
+	LieuLeaveDtoResponse findLieuLeaveRequestById(Long id);
 	
-	List<LieuLeaveRequest> findByUser(Long id);
+	List<LieuLeaveDtoResponse> findLieuLeaveRequestByUserId(Long id);
 
 
 }

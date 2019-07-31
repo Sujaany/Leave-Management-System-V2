@@ -18,7 +18,7 @@ import com.invicta.lms.enums.LeaveProcessType;
 
 @Entity
 @Table(name="leave_days_processor",schema="leave_system")
-public class LeaveDaysProcessor {
+public class LeaveManager {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

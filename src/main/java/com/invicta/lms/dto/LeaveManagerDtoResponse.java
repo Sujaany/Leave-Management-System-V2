@@ -4,10 +4,9 @@ import java.sql.Date;
 
 import com.invicta.lms.enums.LeaveProcessType;
 
-public class LeaveDaysProcessorDtoResponse {
+public class LeaveManagerDtoResponse {
 
 	private Long id;
-	private String userName;
 	private LeaveTypeDto LeaveType;
 	private LeaveProcessType leaveProcessType;
 	private Double days;
@@ -19,14 +18,6 @@ public class LeaveDaysProcessorDtoResponse {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public LeaveTypeDto getLeaveType() {

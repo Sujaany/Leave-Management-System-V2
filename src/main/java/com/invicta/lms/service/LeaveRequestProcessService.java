@@ -1,11 +1,10 @@
 package com.invicta.lms.service;
 
-import com.invicta.lms.entity.LeaveRequest;
-import com.invicta.lms.entity.LeaveRequestProcess;
-import com.invicta.lms.entity.User;
-import com.invicta.lms.enums.LeaveRequestAction;
+import com.invicta.lms.dto.LeaveProcessDtoRequest;
+import com.invicta.lms.dto.LeaveProcessDtoResponse;
+
 
 public interface LeaveRequestProcessService {
-	Boolean createLeaveRequestProcess(LeaveRequestProcess leaveRequestProcess,LeaveRequest leaveRequest,User user);
-	Boolean processLeaveRequest(LeaveRequestProcess leaveRequestProcess,LeaveRequestAction leaveRequestAction,User user,Long lid);
+
+	LeaveProcessDtoResponse processLeaveRequest(Long leaveRequestId,Long processUserId,LeaveProcessDtoRequest leaveProcessDtoRequest);
 }

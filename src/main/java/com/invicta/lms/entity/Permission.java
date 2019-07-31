@@ -2,6 +2,7 @@ package com.invicta.lms.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public class Permission {
 	private List<String> permission;
 
 	@Convert(converter = SubMenuMapConverter.class)
+	@Column(length=1000)
 	private List<SubMenuDto> subMenu;
 
 	public Permission(Long id, String menuName, String menuLink, String icon, List<String> permission,

@@ -27,7 +27,7 @@ public class LieuLeaveRequest extends DateAudit {
 	private Long id;
 	@ManyToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User userId;
+	private User user;
 	private Date startDate;
 	private Date endDate;
 	private Double workedHours;
@@ -42,12 +42,12 @@ public class LieuLeaveRequest extends DateAudit {
 		this.id = id;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Date getStartDate() {

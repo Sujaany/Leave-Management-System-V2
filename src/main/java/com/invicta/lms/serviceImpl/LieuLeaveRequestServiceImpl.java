@@ -7,40 +7,55 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.invicta.lms.dto.LieuLeaveDtoRequest;
+import com.invicta.lms.dto.LieuLeaveDtoResponse;
+import com.invicta.lms.dto.mapper.LieuLeaveRequestMapper;
 import com.invicta.lms.entity.LieuLeaveRequest;
-import com.invicta.lms.entity.User;
 import com.invicta.lms.exception.AppException;
 import com.invicta.lms.exception.ResourceNotFoundException;
 import com.invicta.lms.repository.LieuLeaveRequestRepository;
+import com.invicta.lms.repository.UserRepository;
 import com.invicta.lms.service.LieuLeaveRequestService;
 
 @Service
 public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
+
+	@Autowired
+	LieuLeaveRequestMapper lieuLeaveRequestMapper;
+
 	@Autowired
 	LieuLeaveRequestRepository lieuLeaveRequestRepository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(LieuLeaveRequestServiceImpl.class);
 
 	@Override
-	public LieuLeaveRequest applyLeieuLeave(LieuLeaveRequest lieuLeaveRequest, User user) {
+	public LieuLeaveDtoResponse applyLieuLeave(LieuLeaveDtoRequest lieuLeaveDtoRequest, Long userId) {
+		LieuLeaveRequest lieuLeaveRequest = new LieuLeaveRequest();
+		LieuLeaveRequest mappedlieuLeaveRequest = lieuLeaveRequestMapper.mapDtoToEntity(lieuLeaveDtoRequest,
+				lieuLeaveRequest);
+
 		try {
+
+			mappedlieuLeaveRequest.setUser(userRepository.findUserById(userId));
+			LieuLeaveRequest savedlieuLeaveRequest = lieuLeaveRequestRepository.save(lieuLeaveRequest);
 			logger.info("LieuLeaveRequest creating");
-			if (lieuLeaveRequest != null) {
-				lieuLeaveRequest.setUserId(user);
-				return lieuLeaveRequestRepository.save(lieuLeaveRequest);
-			}
+			return lieuLeaveRequestMapper.mapEntityToDto(savedlieuLeaveRequest);
 
 		} catch (Exception e) {
-			logger.error("LieuLeaveRequest Not Creating at the time", e.fillInStackTrace());
-			throw new AppException("LieuLeaveRequest Not Creating", e.fillInStackTrace());
+			logger.error("LieuLeaveRequest Not Creating at the time");
+
+			throw new AppException("LieuLeaveRequest Not Creating");
 		}
-		return null;
-	}
+
+ 	}
 
 	@Override
-	public List<LieuLeaveRequest> viewAllLieuLeaveRequest() {
+	public List<LieuLeaveDtoResponse> viewAllLieuLeaveRequest() {
 		try {
-			return lieuLeaveRequestRepository.findAll();
+			return lieuLeaveRequestMapper.mapEntityListToDtoList(lieuLeaveRequestRepository.findAll());
 
 		} catch (Exception e) {
 			throw new AppException("LieuLeaveRequest Not Get", e.getCause());
@@ -65,30 +80,11 @@ public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
 	}
 
 	@Override
-	public LieuLeaveRequest updateLieuLeaveRequest(Long id, LieuLeaveRequest lieuLeaveRequest, User user) {
-		try {
-			logger.info("---------------------LieuLeaveRequest Update-------------------");
-			if (lieuLeaveRequestRepository.getOne(id) != null) {
-				lieuLeaveRequest.setId(id);
-				lieuLeaveRequest.setUserId(user);
-				return lieuLeaveRequestRepository.save(lieuLeaveRequest);
-
-			}
-
-		} catch (Exception e) {
-			logger.error("---------------LieuLeaveRequest UPDATE ID is  not found ---------------",
-					e.fillInStackTrace());
-			throw new ResourceNotFoundException("LieuLeaveRequest UPDATE Id is", "id", id);
-		}
-		return null;
-	}
-
-	@Override
-	public LieuLeaveRequest findLieuLeaveRequestById(Long id) {
+	public LieuLeaveDtoResponse findLieuLeaveRequestById(Long id) {
 		try {
 			logger.info("---------------------LieuLeaveRequest Find Lieu Leave Request By Id-------------------");
 			if (lieuLeaveRequestRepository.getOne(id) != null) {
-				return lieuLeaveRequestRepository.findLieuLeaveRequestById(id);
+				return lieuLeaveRequestMapper.mapEntityToDto(lieuLeaveRequestRepository.findLieuLeaveRequestById(id));
 			}
 		} catch (Exception e) {
 			logger.error("---------------------LieuLeaveRequest Find Lieu Leave Request By Id-------------------",
@@ -101,10 +97,10 @@ public class LieuLeaveRequestServiceImpl implements LieuLeaveRequestService {
 	}
 
 	@Override
-	public List<LieuLeaveRequest> findByUser(Long id) {
+	public List<LieuLeaveDtoResponse> findLieuLeaveRequestByUserId(Long id) {
 		logger.info("---------------------LieuLeaveRequest Find by User Id-------------------");
 		try {
-			return lieuLeaveRequestRepository.findByUser(id);
+			return lieuLeaveRequestMapper.mapEntityListToDtoList(lieuLeaveRequestRepository.findLieuLeaveRequestByUserId(id));
 
 		} catch (Exception e) {
 			logger.error("---------------LieuLeaveRequest Find by User Id- ID is  not found ---------------",

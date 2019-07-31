@@ -9,6 +9,6 @@ import com.invicta.lms.entity.LieuLeaveRequest;
 
 public interface LieuLeaveRequestRepository extends JpaRepository<LieuLeaveRequest, Long> {
 	LieuLeaveRequest findLieuLeaveRequestById(Long id);
-	@Query("select lr from LieuLeaveRequest as lr where lr.userId.id = ?1 order by lr.updatedAt desc")
-	List<LieuLeaveRequest> findByUser(Long id);
+	@Query("select lr from LieuLeaveRequest as lr where lr.user.id = ?1 order by lr.updatedAt desc")
+	List<LieuLeaveRequest> findLieuLeaveRequestByUserId(Long id);
 }
