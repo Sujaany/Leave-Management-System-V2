@@ -20,7 +20,6 @@ public class LeaveManagerMapper {
 	public LeaveManager mapDtoToEntity(LeaveManagerDtoRequest leaveManagerDtoRequest,LeaveManager leaveManager) {
 		leaveManager.setLeaveProcessType(leaveManagerDtoRequest.getLeaveProcessType());
 		leaveManager.setDays(leaveManagerDtoRequest.getDays());
-		leaveManager.setDateOfProcess(leaveManagerDtoRequest.getDateOfProcess());
 		leaveManager.setLeaveType(leaveTypeRepository.findLeaveTypeById(leaveManagerDtoRequest.getLeaveTypeId()));
 		return leaveManager;
 	}
@@ -28,7 +27,6 @@ public class LeaveManagerMapper {
 	public LeaveManagerDtoResponse mapEntityToDto(LeaveManager leaveManager) {
 		LeaveManagerDtoResponse leaveManagerDtoResponse =new LeaveManagerDtoResponse();
 		leaveManagerDtoResponse.setId(leaveManager.getId());
-		leaveManagerDtoResponse.setDateOfProcess(leaveManager.getDateOfProcess());
 		leaveManagerDtoResponse.setDays(leaveManager.getDays());
 		leaveManagerDtoResponse.setLeaveProcessType(leaveManager.getLeaveProcessType());
 		

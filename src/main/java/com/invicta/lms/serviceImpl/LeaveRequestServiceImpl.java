@@ -85,7 +85,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	@Transactional
 	public Boolean createInitialLeaveRequestProcess(LeaveDtoRequest leaveDtoRequest,Long requestUserId) {
 		LeaveRequest leaveRequest=this.addLeaveRequest(leaveDtoRequest, requestUserId);
-		LeaveProcessDtoRequest leaveProcessDtoRequest=new LeaveProcessDtoRequest(LeaveRequestAction.APPLIED,"Leave Request applied");
 		
 		LeaveManagerDtoRequest leaveManagerDtoRequest=new LeaveManagerDtoRequest();
 		leaveManagerDtoRequest.setLeaveProcessType(LeaveProcessType.UTILIZED);
@@ -93,8 +92,9 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		
 		Double numOfDays=(-1)*leaveDtoRequest.getNoOfDays();
 		leaveManagerDtoRequest.setDays(numOfDays);
-		leaveManagerService.addLeaveManager(requestUserId, leaveManagerDtoRequest);
-		
+				
+		LeaveProcessDtoRequest leaveProcessDtoRequest=new LeaveProcessDtoRequest(LeaveRequestAction.APPLIED,"Leave Request applied");
+		leaveProcessDtoRequest.setLeaveManager(leaveManagerService.addLeaveManager(requestUserId, leaveManagerDtoRequest).getId());
 		
 		if(leaveRequestProcessService.processLeaveRequest(leaveRequest.getId(),requestUserId,leaveProcessDtoRequest)!=null) {
 			return true;

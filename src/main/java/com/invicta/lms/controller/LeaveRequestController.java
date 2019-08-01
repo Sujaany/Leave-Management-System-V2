@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.invicta.lms.dto.LeaveDtoRequest;
 import com.invicta.lms.service.LeaveRequestService;
-import com.invicta.lms.validation.LeaveRequestValidation;
 
 @RestController
 @RequestMapping("leaveRequest")
@@ -22,12 +21,8 @@ public class LeaveRequestController {
 	@Autowired
 	private LeaveRequestService leaveRequestService;
 
-	@Autowired
-	private LeaveRequestValidation leaveRequestValidation;
-
 	@PostMapping("/requesteduser/{userid}")
 	public ResponseEntity<?> addLeaveRequest(@RequestBody LeaveDtoRequest leaveDtoRequest,@PathVariable("userid") Long userId) {
-		leaveRequestValidation.validationLeave(leaveDtoRequest);
 		return new ResponseEntity<>(leaveRequestService.createInitialLeaveRequestProcess(leaveDtoRequest,userId), HttpStatus.CREATED);
 	}
 

@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import com.invicta.lms.dto.LeaveProcessDtoRequest;
 import com.invicta.lms.dto.LeaveProcessDtoResponse;
 import com.invicta.lms.dto.mapper.LeaveRequestProcessMapper;
-import com.invicta.lms.entity.LeaveRequest;
 import com.invicta.lms.entity.LeaveRequestProcess;
-import com.invicta.lms.entity.User;
 import com.invicta.lms.repository.LeaveRequestProcessRepository;
 import com.invicta.lms.repository.LeaveRequestRepository;
 import com.invicta.lms.repository.UserRepository;
@@ -25,15 +23,12 @@ public class LeaveRequestProcessServiceImpl implements LeaveRequestProcessServic
 	@Autowired
 	private LeaveRequestProcessMapper leaveRequestProcessMapper;
 	
-
 	@Override
 	public LeaveProcessDtoResponse processLeaveRequest(Long leaveRequestId,Long processUserId,LeaveProcessDtoRequest leaveProcessDtoRequest) {
 		LeaveRequestProcess leaveRequestProcess=new LeaveRequestProcess();
 		leaveRequestProcess=leaveRequestProcessMapper.mapDtoToEntity(leaveProcessDtoRequest, leaveRequestProcess);
-		LeaveRequest leaveRequest=leaveRequestRepository.findLeaveRequestById(leaveRequestId);
-		leaveRequestProcess.setLeaveRequest(leaveRequest);
-		User processUser=userRepository.findUserById(processUserId);
-		leaveRequestProcess.setProcessUser(processUser);
+		leaveRequestProcess.setLeaveRequest(leaveRequestRepository.findLeaveRequestById(leaveRequestId));
+		leaveRequestProcess.setProcessUser(userRepository.findUserById(processUserId));
 		leaveRequestProcess=leaveRequestProcessRepository.save(leaveRequestProcess);
 		
 		return leaveRequestProcessMapper.mapEntityToDto(leaveRequestProcess);

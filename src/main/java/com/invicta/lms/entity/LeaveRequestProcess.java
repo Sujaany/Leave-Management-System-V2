@@ -39,6 +39,10 @@ public class LeaveRequestProcess extends DateAudit {
 	@JoinColumn(name = "process_by")
 	private User processUser;
 	
+	@JoinColumn(name="leave_manager_id")
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private LeaveManager leaveManager;
+	
 	private String reason;
 	
 	public Long getId() {
@@ -71,6 +75,12 @@ public class LeaveRequestProcess extends DateAudit {
 	}
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	public LeaveManager getLeaveManager() {
+		return leaveManager;
+	}
+	public void setLeaveManager(LeaveManager leaveManager) {
+		this.leaveManager = leaveManager;
 	}
 	
 }

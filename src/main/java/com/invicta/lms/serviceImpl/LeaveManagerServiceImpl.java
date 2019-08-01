@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.invicta.lms.dto.LeaveManagerDtoRequest;
 import com.invicta.lms.dto.LeaveManagerDtoResponse;
-import com.invicta.lms.dto.LeaveSummary;
+import com.invicta.lms.dto.LeaveSummaryResponseDto;
 import com.invicta.lms.dto.mapper.LeaveManagerMapper;
 import com.invicta.lms.entity.LeaveManager;
 import com.invicta.lms.repository.LeaveManagerRepository;
+import com.invicta.lms.repository.LeaveTypeRepository;
 import com.invicta.lms.repository.UserRepository;
 import com.invicta.lms.service.LeaveManagerService;
-
 
 @Service
 public class LeaveManagerServiceImpl implements LeaveManagerService {
@@ -27,18 +27,20 @@ public class LeaveManagerServiceImpl implements LeaveManagerService {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	LeaveTypeRepository leaveTypeRepository;
+	
 	@Override
 	public LeaveManagerDtoResponse addLeaveManager(Long userid, LeaveManagerDtoRequest leaveManagerDtoRequest) {
 		LeaveManager newleaveManager = new LeaveManager();
 		LeaveManager leaveManager = leaveManagerMapper.mapDtoToEntity(leaveManagerDtoRequest, newleaveManager);
 		if (leaveManager != null) {
 			leaveManager.setUser(userRepository.findUserById(userid));
-			LeaveManager repoleaveManager= leaveManagerRepository.save(leaveManager);
-			return leaveManagerMapper.mapEntityToDto(repoleaveManager);
+			return leaveManagerMapper.mapEntityToDto(leaveManagerRepository.save(leaveManager));
 		}
 		return null;
 	}
-
+	
 	@Override
 	public LeaveManagerDtoResponse updateLeaveManager(Long id, LeaveManagerDtoRequest leaveManagerDtoRequest) {
 		if (leaveManagerRepository.getOne(id) != null) {
@@ -83,16 +85,9 @@ public class LeaveManagerServiceImpl implements LeaveManagerService {
 	}
 
 	@Override
-	public LeaveSummary leaveSummary(Long userId, Long leaveTypeId) {
-//		LeaveSummary leaveSummary = new LeaveSummary();
-//		leaveSummary.setLeaveType(leaveTypeService.findLeaveTypeById(leaveTypeId).getLeaveTypeName());
-//
-//		leaveSummary.setAllocation(leaveDaysProcessorRepository.sumLeaveProcessTypesByUserandLeaveType(userId,
-//				leaveTypeId, LeaveProcessType.ALLOCATION));
-//		leaveSummary.setUtilized(leaveDaysProcessorRepository.sumLeaveProcessTypesByUserandLeaveType(userId,
-//				leaveTypeId, LeaveProcessType.UTILIZED));
-//		leaveSummary.setRemaining(leaveDaysProcessorRepository.sumLeaveDaysByUserAndLeaveType(userId, leaveTypeId));
-//		return leaveSummary;
+	public LeaveSummaryResponseDto leaveSummaryResponseDto(Long userId, Long leaveTypeId) {
+		LeaveSummaryResponseDto leaveSummaryResponseDto = new LeaveSummaryResponseDto();
+		leaveSummaryResponseDto.setLeaveType(leaveTypeRepository.findLeaveTypeById(leaveTypeId).getLeaveTypeName());
 		return null;
 	}
 

@@ -5,6 +5,7 @@ import com.invicta.lms.enums.LeaveRequestAction;
 public class LeaveProcessDtoRequest {
 	private LeaveRequestAction leaveRequestAction;
 	private String reason;
+	private Long leaveManager;
 	
 	public LeaveProcessDtoRequest(LeaveRequestAction leaveRequestAction, String reason) {
 		this.leaveRequestAction = leaveRequestAction;
@@ -15,6 +16,14 @@ public class LeaveProcessDtoRequest {
 		
 	}
 	
+	public Long getLeaveManager() {
+		return leaveManager;
+	}
+
+	public void setLeaveManager(Long leaveManager) {
+		this.leaveManager = leaveManager;
+	}
+
 	public String getReason() {
 		return reason;
 	}

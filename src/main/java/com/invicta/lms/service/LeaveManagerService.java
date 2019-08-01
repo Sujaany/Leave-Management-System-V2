@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.invicta.lms.dto.LeaveManagerDtoRequest;
 import com.invicta.lms.dto.LeaveManagerDtoResponse;
-import com.invicta.lms.dto.LeaveSummary;
+import com.invicta.lms.dto.LeaveSummaryResponseDto;
 
 
 public interface LeaveManagerService {
@@ -19,7 +19,7 @@ public interface LeaveManagerService {
 	// list all the leaves days for particular user by leave days and leave type
 	List<LeaveManagerDtoResponse> findLeaveManagerByUserAndLeaveType(Long userId,Long leaveTypeId);
 	// list all the leaves days for particular user 
-	LeaveSummary leaveSummary(Long userId,Long leaveTypeId);
+	LeaveSummaryResponseDto leaveSummaryResponseDto(Long userId,Long leaveTypeId);
 
 
 }

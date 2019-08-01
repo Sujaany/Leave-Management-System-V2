@@ -1,7 +1,5 @@
 package com.invicta.lms.entity;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,11 +12,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.invicta.lms.entity.audit.DateAudit;
 import com.invicta.lms.enums.LeaveProcessType;
 
 @Entity
 @Table(name="leave_days_processor",schema="leave_system")
-public class LeaveManager {
+public class LeaveManager extends DateAudit {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5369083158146933228L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,7 +41,6 @@ public class LeaveManager {
 	private LeaveProcessType leaveProcessType;
 	
 	private Double days;
-	private Date dateOfProcess;
 	
 	public Long getId() {
 		return id;
@@ -68,12 +72,6 @@ public class LeaveManager {
 	}
 	public void setDays(Double days) {
 		this.days = days;
-	}
-	public Date getDateOfProcess() {
-		return dateOfProcess;
-	}
-	public void setDateOfProcess(Date dateOfProcess) {
-		this.dateOfProcess = dateOfProcess;
 	}
 		
 }
