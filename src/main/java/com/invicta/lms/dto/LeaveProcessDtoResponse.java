@@ -1,14 +1,16 @@
 package com.invicta.lms.dto;
 
+import com.invicta.lms.entity.LeaveRequest;
 import com.invicta.lms.enums.LeaveRequestAction;
 
 public class LeaveProcessDtoResponse {
 
 	private Long id;
-	private Long leaveRequestId;
+	private LeaveRequest leaveRequest;
 	private LeaveRequestAction leaveRequestAction;
 	private String reason;
 	private UserInfoDtoResponse userInfo;
+	private LeaveManagerDtoResponse leaveManager;
 	
 	public Long getId() {
 		return id;
@@ -16,11 +18,18 @@ public class LeaveProcessDtoResponse {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getLeaveRequestId() {
-		return leaveRequestId;
+	
+	public LeaveRequest getLeaveRequest() {
+		return leaveRequest;
 	}
-	public void setLeaveRequestId(Long leaveRequestId) {
-		this.leaveRequestId = leaveRequestId;
+	public void setLeaveRequest(LeaveRequest leaveRequest) {
+		this.leaveRequest = leaveRequest;
+	}
+	public LeaveManagerDtoResponse getLeaveManager() {
+		return leaveManager;
+	}
+	public void setLeaveManager(LeaveManagerDtoResponse leaveManager) {
+		this.leaveManager = leaveManager;
 	}
 	public LeaveRequestAction getLeaveRequestAction() {
 		return leaveRequestAction;
