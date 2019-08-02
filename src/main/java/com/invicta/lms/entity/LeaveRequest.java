@@ -1,8 +1,10 @@
 package com.invicta.lms.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.invicta.lms.converter.LeaveRequestWorkFlowListConvertor;
+import com.invicta.lms.converter.dto.LeaveRequestWorkFlow;
 import com.invicta.lms.entity.audit.DateAudit;
 import com.invicta.lms.enums.LeaveRequestStatus;
 
@@ -44,6 +48,9 @@ public class LeaveRequest extends DateAudit {
 	
 	@Column(name = "leave_request_status")
 	private LeaveRequestStatus leaveRequestStatus;
+	
+	@Convert(converter = LeaveRequestWorkFlowListConvertor.class)
+	private List<LeaveRequestWorkFlow> leaveRequestWorkFlows;
 	
 	public Long getId() {
 		return id;
@@ -95,6 +102,12 @@ public class LeaveRequest extends DateAudit {
 	}
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	public List<LeaveRequestWorkFlow> getLeaveRequestWorkFlows() {
+		return leaveRequestWorkFlows;
+	}
+	public void setLeaveRequestWorkFlows(List<LeaveRequestWorkFlow> leaveRequestWorkFlows) {
+		this.leaveRequestWorkFlows = leaveRequestWorkFlows;
 	}
 	
 //	public Date getRequestedDate() {

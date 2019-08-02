@@ -1,5 +1,6 @@
 package com.invicta.lms.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.invicta.lms.converter.dto.LeaveRequestWorkFlow;
 import com.invicta.lms.dto.LeaveDtoRequest;
 import com.invicta.lms.dto.LeaveDtoResponse;
 import com.invicta.lms.dto.LeaveManagerDtoRequest;
@@ -44,6 +46,19 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		if(leaveRequest != null) {
 			leaveRequest.setLeaveRequestStatus(LeaveRequestStatus.PENDING);
 			leaveRequest.setRequestedUser(userRepository.findUserById(requestUserId));
+			
+			// Set Work flow for the user
+			List<LeaveRequestWorkFlow> leaveRequestWorkFlows=new ArrayList<>();
+			List<LeaveRequestAction> leaveRequestActiont1=new ArrayList<>();
+			leaveRequestActiont1.add(LeaveRequestAction.APPLIED);
+			List<LeaveRequestAction> leaveRequestActiont2=new ArrayList<>();
+			leaveRequestActiont2.add(LeaveRequestAction.ACCEPTED);
+			leaveRequestActiont2.add(LeaveRequestAction.REJECTED);
+			leaveRequestWorkFlows.add(new LeaveRequestWorkFlow(requestUserId,leaveRequestActiont1 , false));
+			leaveRequestWorkFlows.add(new LeaveRequestWorkFlow(2L,leaveRequestActiont2 , false));
+			leaveRequestWorkFlows.add(new LeaveRequestWorkFlow(3L,leaveRequestActiont2 , false));
+			
+			leaveRequest.setLeaveRequestWorkFlows(leaveRequestWorkFlows);
 			return leaveRequestRepository.save(leaveRequest);
 			
 		}
@@ -97,6 +112,15 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		leaveProcessDtoRequest.setLeaveManager(leaveManagerService.addLeaveManager(requestUserId, leaveManagerDtoRequest).getId());
 		
 		if(leaveRequestProcessService.processLeaveRequest(leaveRequest.getId(),requestUserId,leaveProcessDtoRequest)!=null) {
+			List<LeaveRequestWorkFlow> lvreqtwfs=leaveRequest.getLeaveRequestWorkFlows();
+			
+			for(LeaveRequestWorkFlow leaveRequestWorkFlow:lvreqtwfs) {
+				if(leaveRequestWorkFlow.getUserId().equals(requestUserId) && leaveRequestWorkFlow.getLeaveRequestActions().contains(LeaveRequestAction.APPLIED)) {
+					leaveRequestWorkFlow.setComplete(true);
+				}
+			}
+			leaveRequest.setLeaveRequestWorkFlows(lvreqtwfs);
+			leaveRequestRepository.save(leaveRequest);
 			return true;
 		}
 		
